@@ -1,1 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
+/* @import "./app/modal-animations.css"; */
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/poppins/Poppins-Regular.ttf") format("truetype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/poppins/Poppins-Medium.ttf") format("truetype");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/poppins/Poppins-SemiBold.ttf") format("truetype");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/poppins/Poppins-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Allura";
+  src: url("./assets/Allura/Allura-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}

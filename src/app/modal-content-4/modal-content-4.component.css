@@ -1,0 +1,41 @@
+.modal-content {
+  padding: 1rem;
+  background: white;
+}
+.modal-content h2 {
+  margin-bottom: 3rem;
+  font-weight: normal;
+  text-align: center;
+}
+
+.actions {
+  margin-top: 5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.actions button {
+  padding: 0.6rem 1.1rem;
+  background: #e2e2e2;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.emphasize {
+  background: #e8e8e8;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.3rem;
+}
+
+.M3-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.M3-data input {
+  border: none;
+  border-bottom: 2px solid #d9d9d9;
+  padding: 0.3rem 0;
+  outline: none;
+  caret-color: blueviolet;
+}

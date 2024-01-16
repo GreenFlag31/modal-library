@@ -1,0 +1,16 @@
+<div class="modal-content">
+  <h2>Modal 3 title</h2>
+  <p>
+    This present modal contains the content of the component
+    <span class="emphasize">{{ name }}</span
+    >.
+  </p>
+  <div class="M3-data">
+    <label for="M3-content-inside">Data to pass to the main component </label>
+    <input type="text" id="M3-content-inside" [(ngModel)]="M3Info" />
+  </div>
+
+  <div class="actions">
+    <button (click)="onClose()">Close</button>
+  </div>
+</div>

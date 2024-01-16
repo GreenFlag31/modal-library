@@ -1,0 +1,18 @@
+<div class="modal-content">
+  <h2>Modal 2 title</h2>
+  <p>
+    This present modal contains the content of the component
+    <span class="emphasize">{{ name }}</span
+    >.
+  </p>
+  <p class="second-p">
+    The following data has been send from the caller to the callee component:
+  </p>
+  <p class="coming-from-caller" [class.no-data]="!M2Info">
+    {{ M2Info || "🚫 No data" }}
+  </p>
+
+  <div class="actions">
+    <button (click)="onClose()">Close</button>
+  </div>
+</div>

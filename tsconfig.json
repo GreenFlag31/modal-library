@@ -10,6 +10,11 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
+    "paths": {
+      "ngx-modal-ease": [
+        "./dist/ngx-modal-ease"
+      ]
+    },
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,

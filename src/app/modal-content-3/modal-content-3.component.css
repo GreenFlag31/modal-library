@@ -1,0 +1,40 @@
+.modal-content {
+  padding: 1rem;
+  background: white;
+}
+.modal-content h2 {
+  margin-bottom: 3rem;
+  font-weight: normal;
+  text-align: center;
+}
+.modal-content p.second-p {
+  margin-bottom: 1rem;
+}
+.actions {
+  margin-top: 5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.actions button {
+  padding: 0.6rem 1.1rem;
+  background: #e2e2e2;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.coming-from-caller {
+  background: rgb(0, 100, 5);
+  color: #fff;
+  border-radius: 0.3rem;
+  padding: 0.1rem 0.6rem;
+}
+.coming-from-caller.no-data {
+  padding: 0;
+  background: none;
+  color: #000;
+}
+.emphasize {
+  background: #e8e8e8;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.3rem;
+}

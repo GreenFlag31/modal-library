@@ -1,0 +1,17 @@
+<div class="modal-content">
+  <h2>Modal 1 title</h2>
+  <p class="first">
+    This present modal contains the content of the component {{ name }}
+    <span class="emphasize">{{ name }}</span> and has the capability to open a
+    new modal, also based on the content of another component.
+  </p>
+  <p>
+    Press <span class="emphasize">Escape</span> or
+    <span class="emphasize">click outside</span> of the modal to close it.
+  </p>
+
+  <div class="actions">
+    <button (click)="onOpen()">Open new modal</button>
+    <button (click)="onClose()">Close</button>
+  </div>
+</div>

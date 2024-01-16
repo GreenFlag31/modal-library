@@ -1,0 +1,73 @@
+.modal-container {
+  padding: 1rem;
+  max-width: 50rem;
+  margin: auto;
+}
+.modal-container h1 {
+  margin-bottom: 5rem;
+  text-align: center;
+  font-family: "Allura";
+  font-size: 3rem;
+}
+.modal-container .actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 13rem;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.actions button {
+  padding: 0.6rem 1.3rem;
+  border: none;
+  background: darkred;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+.content h2 {
+  font-weight: 500;
+  font-family: "Allura";
+  font-size: 2.1rem;
+  margin-bottom: 0.5rem;
+}
+.actions button.M2 {
+  background: rgb(0, 100, 5);
+}
+.actions button.M3 {
+  background: blueviolet;
+}
+.modal-data {
+  display: flex;
+  flex-direction: column;
+}
+.modal-text {
+  background: rgb(0, 100, 5);
+  color: #fff;
+  border-radius: 0.3rem;
+  padding: 0.1rem 0.6rem;
+}
+
+.modal-data input {
+  border: none;
+  border-bottom: 2px solid #d9d9d9;
+  padding: 0.3rem 0;
+  outline: none;
+  caret-color: rgb(0, 141, 0);
+  font-size: 1rem;
+}
+.modal-data.M3 {
+  margin-top: 2rem;
+}
+.M3 .modal-text {
+  background: blueviolet;
+}
+.card {
+  padding: 1rem;
+  border: 1px solid grey;
+  border-radius: 0.3rem;
+}

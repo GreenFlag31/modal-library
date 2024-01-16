@@ -11,12 +11,15 @@ export interface Options {
     backgroundColor?: string;
   };
   size?: {
-    minHeight?: string;
-    width?: string;
-    maxWidth?: string;
     height?: string;
     maxHeight?: string;
+    width?: string;
+    maxWidth?: string;
     padding?: string;
+  };
+  actions?: {
+    escape?: boolean;
+    click?: boolean;
   };
   data?: {
     [key: string]: unknown;

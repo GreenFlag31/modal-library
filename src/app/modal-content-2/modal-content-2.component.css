@@ -1,7 +1,7 @@
 .modal-content {
   padding: 1rem;
-  background: rgb(0, 121, 4);
-  color: white;
+  background: rgb(103, 0, 0);
+  color: #fff;
 }
 .modal-content h2 {
   margin-bottom: 3rem;
@@ -15,7 +15,8 @@
 }
 .actions button {
   padding: 0.6rem 1.1rem;
-  background: #e2e2e2;
+  background: #000;
+  color: #fff;
   border: none;
   text-transform: uppercase;
   cursor: pointer;

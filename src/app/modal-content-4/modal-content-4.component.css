@@ -34,7 +34,7 @@
 
 .M3-data input {
   border: none;
-  border-bottom: 2px solid #d9d9d9;
+  border-bottom: 2px solid blueviolet;
   padding: 0.3rem 0;
   outline: none;
   caret-color: blueviolet;

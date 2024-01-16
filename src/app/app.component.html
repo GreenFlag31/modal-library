@@ -1,22 +1,30 @@
 <div class="modal-container">
-  <h1>ngx-modal-ease</h1>
+  <header>
+    <h1>ngx-modal-ease</h1>
+    <p class="presentation">
+      This library support data communication between the component that call
+      the modal and the component inside the modal. It supports also the opening
+      of multiple modals and offers a range of customisable options.
+    </p>
+  </header>
 
-  <section class="content">
-    <h2>Communication between caller component and callee</h2>
-    <div class="modal-data">
-      <label for="M2-content"
-        >Data to pass to <span class="modal-text">M2</span></label
-      >
-      <input type="text" id="M2-content" [(ngModel)]="M2Information" />
-    </div>
-    <div class="modal-data M3">
-      <label for="M3-content"
-        >Data that comes from the
-        <span class="modal-text">M3</span> component</label
-      >
-      <input type="text" id="M3-content" [(ngModel)]="M3Information" />
-    </div>
-  </section>
+  <main>
+    <section class="content">
+      <div class="modal-data">
+        <label for="M2-content"
+          >Data to pass to <span class="modal-text">M2</span></label
+        >
+        <input type="text" id="M2-content" [(ngModel)]="M2Information" />
+      </div>
+      <div class="modal-data M3">
+        <label for="M3-content"
+          >Data that comes from the
+          <span class="modal-text">M3</span> component</label
+        >
+        <input type="text" id="M3-content" [(ngModel)]="M3Information" />
+      </div>
+    </section>
+  </main>
 
   <section class="actions">
     <div class="card">

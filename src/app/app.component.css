@@ -4,16 +4,19 @@
   margin: auto;
 }
 .modal-container h1 {
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
   text-align: center;
   font-family: "Allura";
   font-size: 3rem;
+}
+header p {
+  margin-bottom: 2rem;
 }
 .modal-container .actions {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
-  margin-top: 13rem;
+  margin-top: 7rem;
 }
 .button-container {
   display: flex;
@@ -28,6 +31,9 @@
   text-transform: uppercase;
   border-radius: 0.3rem;
   cursor: pointer;
+}
+.content {
+  margin-top: 5rem;
 }
 .content h2 {
   font-weight: 500;
@@ -54,11 +60,15 @@
 
 .modal-data input {
   border: none;
-  border-bottom: 2px solid #d9d9d9;
+  border-bottom: 2px solid rgb(0, 141, 0);
   padding: 0.3rem 0;
   outline: none;
   caret-color: rgb(0, 141, 0);
   font-size: 1rem;
+}
+.modal-data input#M3-content {
+  caret-color: blueviolet;
+  border-bottom: 2px solid blueviolet;
 }
 .modal-data.M3 {
   margin-top: 2rem;

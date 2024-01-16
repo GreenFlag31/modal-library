@@ -36,7 +36,7 @@ export class ModalService {
   ) {}
 
   /**
-   * Opens a custom component within a modal
+   * Opens a custom component within a modal.
    * @param componentToCreate The custom component to display within the modal.
    * @param options Additional options for configuring the modal appearance and animations.
    * @returns A RxJs Subject that will emit custom data on closing the modal.
@@ -87,7 +87,7 @@ export class ModalService {
   }
 
   /**
-   * Close the current modal
+   * Close the current modal.
    * @param data The optional data to emit on closing the modal (communication from callee to caller).
    */
   close(data?: unknown) {
@@ -96,5 +96,14 @@ export class ModalService {
 
     this.modalSubject.next(data);
     this.modalSubject.complete();
+  }
+
+  /**
+   * Close all modal instances.
+   */
+  closeAll() {
+    for (const modal of this.modalInstances) {
+      modal.close();
+    }
   }
 }

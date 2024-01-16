@@ -40,6 +40,8 @@ export class ModalComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
+    if (this.modalService.options?.actions?.escape === false) return;
+
     this.escapeKeySubscription = fromEvent<KeyboardEvent>(document, 'keydown')
       .pipe(filter((event) => event.key === 'Escape'))
       .subscribe(() => {
@@ -50,6 +52,8 @@ export class ModalComponent implements OnInit, AfterViewInit {
   }
 
   onClose() {
+    if (this.modalService.options?.actions?.click === false) return;
+
     this.modalService.close();
   }
 
@@ -69,12 +73,11 @@ export class ModalComponent implements OnInit, AfterViewInit {
     this.modal.nativeElement.style.width = this.options?.size?.width || '';
     this.modal.nativeElement.style.maxWidth =
       this.options?.size?.maxWidth || '';
-    this.modal.nativeElement.style.minHeight =
-      this.options?.size?.minHeight || '';
     this.modal.nativeElement.style.height = this.options?.size?.height || '';
     this.modal.nativeElement.style.maxHeight =
       this.options?.size?.maxHeight || '';
-    this.modal.nativeElement.style.padding = this.options?.size?.padding || '';
+    this.modal.nativeElement.style.padding =
+      this.options?.size?.padding || '0.5rem';
 
     const overlayZIndex = 1000 * this.modalService.modalInstances.length;
     this.overlay.nativeElement.style.zIndex = `${overlayZIndex}`;

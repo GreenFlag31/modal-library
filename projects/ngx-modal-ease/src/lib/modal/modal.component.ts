@@ -6,8 +6,10 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation,
   OnInit,
+  Inject,
+  PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ModalService } from './modal.service';
 import { Options } from './modal-options';
 import { Observable, Subscription, filter, fromEvent } from 'rxjs';
@@ -33,14 +35,19 @@ export class ModalComponent implements OnInit, AfterViewInit {
   modalClosed = false;
   layerLevel = 0;
   escapeKeySubscription!: Subscription;
+  isBrowser = true;
 
   constructor(
     private modalService: ModalService,
-    private element: ElementRef<HTMLElement>
-  ) {}
+    private element: ElementRef<HTMLElement>,
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit() {
     if (this.modalService.options?.actions?.escape === false) return;
+    if (!this.isBrowser) return;
 
     this.escapeKeySubscription = fromEvent<KeyboardEvent>(document, 'keydown')
       .pipe(filter((event) => event.key === 'Escape'))
@@ -58,6 +65,8 @@ export class ModalComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    if (!this.isBrowser) return;
+
     this.options = this.modalService.options;
     this.modalService.modalInstances.push(this);
     this.modalService.layerLevel += 1;

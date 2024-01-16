@@ -23,7 +23,7 @@ Finally, inject the `ModalService` in your component through regular dependancy 
 
 # Options
 
-The modal supports a range of customisable options.
+The modal supports a range of customisable options:
 
 ```
 Options {
@@ -104,15 +104,13 @@ In the following example, `ModalContentComponent` is a component you should crea
 Any type of data can be provided between components. Create the corresponding property (here, `type`) in your component (here, `ModalContentComponent`) and the property will be assigned with the provided value.
 
 In your `ModalContentComponent`:
-To pass information from the `ModalContentComponent` to your current component, inject the `ModalService` through regular dependency injection and call the `close(data)` method from the service with any data you wish to send back to your component.
-
-This method returns an RxJs subject, so subscribe to it as shown in the above example.
+To pass information from the `ModalContentComponent` to your current component, inject the `ModalService` through regular dependency injection and call the `close(data)` method from the service with any data you wish to send back to your component. This method returns an RxJs subject, so subscribe to it as shown in the above example.
 
 Publicly available methods have been exhaustively documented and respect an interface, so you should get autocomplete and help from your code editor. Press on `CTRL + space` to get help on the available properties in the `Options` object.
 
 # Ready-to-use animations keyframes
 
-This library comes with predefined and ready-to-use animations keyframes. Just fill in the `name`, `duration` and `easing function` (more info on the `animation CSS shorthand` [here](https://developer.mozilla.org/en-US/docs/Web/CSS/animation)). Of course, you can create your own keyframes too.
+This library comes with predefined and ready-to-use animations keyframes. Just fill in the `name`, `duration` and `easing function` (more info on the `animation CSS shorthand` [here](https://developer.mozilla.org/en-US/docs/Web/CSS/animation)). Those animations are 'position agnostic', so if you wish to position your modal at other `top` and `left` values than default, it will correctly work. Of course, you can create your own keyframes too.
 
 ```
 /* Recommended: 0.2s ease-out */
@@ -221,7 +219,7 @@ If you create your own keyframes, I would recommend to create a new file `modal-
 
 # SSR (Server Side Rendering)
 
-This library supports Server Side Rendering (SSR). The carousel will not instantiate during server-side execution.
+This library supports Server Side Rendering (SSR). The modal will not instantiate during server-side execution.
 
 # DX Friendly
 

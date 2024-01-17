@@ -4,7 +4,11 @@
     <p class="presentation">
       This library support data communication between the component that call
       the modal and the component inside the modal. It supports also the opening
-      of multiple modals and offers a range of customisable options.
+      of multiple modals and offers a range of customisable options, from custom
+      or ready-to-use animations to configuration of the modal.
+      <span class="last-sentence">
+        Implement a modal in your application in no time!
+      </span>
     </p>
   </header>
 
@@ -27,22 +31,100 @@
   </main>
 
   <section class="actions">
-    <div class="card">
-      <p>This opens a modal that contains another modal to open</p>
+    <div class="card M1">
+      <p>This opens a modal that contains another modal to open.</p>
+      <div class="animations-options">
+        <div class="list">
+          <label>Animation:</label>
+          <select tabindex="0" [(ngModel)]="M1.animation">
+            <option value="modal-enter-going-down">
+              modal-enter-going-down
+            </option>
+            <option value="modal-enter-scaling">modal-enter-scaling</option>
+            <option value="modal-enter-scale-down" selected>
+              modal-enter-scale-down
+            </option>
+            <option value="fade-in">fade-in</option>
+            <option value="fade-out">fade-out</option>
+            <option value="bounce-in">bounce-in</option>
+            <option value="scale-rotate">scale-rotate</option>
+          </select>
+        </div>
+        <div class="duration">
+          <label for="duration-time-M1">Duration:</label>
+          <input type="text" id="duration-time-M1" [(ngModel)]="M1.duration" />
+        </div>
+        <div class="easing">
+          <label for="easing-fn-M1">Easing function:</label>
+          <input type="text" id="easing-fn-M1" [(ngModel)]="M1.easing" />
+        </div>
+      </div>
       <div class="button-container">
         <button class="M1" (click)="onOpenM1()">Open M1</button>
       </div>
     </div>
-    <div class="card">
+    <div class="card M2">
       <p>
-        This opens a modal with data to send to M2 (fill in the first input)
+        This opens a modal with data to send to M2 (fill in the first input).
       </p>
+      <div class="animations-options">
+        <div class="list">
+          <label>Animation:</label>
+          <select tabindex="0" [(ngModel)]="M2.animation">
+            <option value="modal-enter-going-down">
+              modal-enter-going-down
+            </option>
+            <option value="modal-enter-scaling">modal-enter-scaling</option>
+            <option value="modal-enter-scale-down" selected>
+              modal-enter-scale-down
+            </option>
+            <option value="fade-in">fade-in</option>
+            <option value="fade-out">fade-out</option>
+            <option value="bounce-in">bounce-in</option>
+            <option value="scale-rotate">scale-rotate</option>
+          </select>
+        </div>
+        <div class="duration">
+          <label for="duration-time-M2">Duration:</label>
+          <input type="text" id="duration-time-M2" [(ngModel)]="M2.duration" />
+        </div>
+        <div class="easing">
+          <label for="easing-fn-M2">Easing function:</label>
+          <input type="text" id="easing-fn-M2" [(ngModel)]="M2.easing" />
+        </div>
+      </div>
       <div class="button-container">
         <button class="M2" (click)="onOpenM2()">Open M2</button>
       </div>
     </div>
-    <div class="card">
-      <p>This opens a modal with data coming from the component inside M3</p>
+    <div class="card M3">
+      <p>This opens a modal with data coming from the component inside M3.</p>
+      <div class="animations-options">
+        <div class="list">
+          <label>Animation:</label>
+          <select tabindex="0" [(ngModel)]="M3.animation">
+            <option value="modal-enter-going-down">
+              modal-enter-going-down
+            </option>
+            <option value="modal-enter-scaling">modal-enter-scaling</option>
+            <option value="modal-enter-scale-down" selected>
+              modal-enter-scale-down
+            </option>
+            <option value="fade-in">fade-in</option>
+            <option value="fade-out">fade-out</option>
+            <option value="bounce-in">bounce-in</option>
+            <option value="scale-rotate">scale-rotate</option>
+          </select>
+        </div>
+        <div class="duration">
+          <label for="duration-time-M3">Duration:</label>
+          <input type="text" id="duration-time-M3" [(ngModel)]="M3.duration" />
+        </div>
+        <div class="easing">
+          <label for="easing-fn-M3">Easing function:</label>
+          <input type="text" id="easing-fn-M3" [(ngModel)]="M3.easing" />
+        </div>
+      </div>
       <div class="button-container">
         <button class="M3" (click)="onOpenM3()">Open M3</button>
       </div>

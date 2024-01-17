@@ -45,13 +45,25 @@ export class ModalComponent implements OnInit, AfterViewInit {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
+  /**
+   * Initialise variable and escape key on document.
+   * Multiple modals might register multiple event listener, hence the 'layerLevel' variable and two times the condition check for the escape option.
+   */
   ngOnInit() {
-    if (this.modalService.options?.actions?.escape === false) return;
     if (!this.isBrowser) return;
+
+    this.options = this.modalService.options;
+    this.modalService.modalInstances.push(this);
+    this.modalService.layerLevel += 1;
+    this.layerLevel = this.modalService.layerLevel;
+
+    if (this.options?.actions?.escape === false) return;
 
     this.escapeKeySubscription = fromEvent<KeyboardEvent>(document, 'keydown')
       .pipe(filter((event) => event.key === 'Escape'))
       .subscribe(() => {
+        if (this.options?.actions?.escape === false) return;
+
         if (this.layerLevel === this.modalService.layerLevel) {
           this.modalService.close();
         }
@@ -59,7 +71,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
   }
 
   onClose() {
-    if (this.modalService.options?.actions?.click === false) return;
+    if (this.options?.actions?.click === false) return;
 
     this.modalService.close();
   }
@@ -67,10 +79,6 @@ export class ModalComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if (!this.isBrowser) return;
 
-    this.options = this.modalService.options;
-    this.modalService.modalInstances.push(this);
-    this.modalService.layerLevel += 1;
-    this.layerLevel = this.modalService.layerLevel;
     this.addOptionsAndAnimations();
   }
 
@@ -134,7 +142,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
     this.modalService.layerLevel -= 1;
     this.modal.nativeElement.style.animation = this.modalLeaveAnimation;
     this.overlay.nativeElement.style.animation = this.overlayLeaveAnimation;
-    this.escapeKeySubscription.unsubscribe();
+    this.escapeKeySubscription?.unsubscribe();
 
     // First: no animations on both elements
     if (!this.modalLeaveAnimation && !this.overlayLeaveAnimation) {

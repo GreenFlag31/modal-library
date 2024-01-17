@@ -74,20 +74,16 @@
   0% {
     transform: translate(-50%, -85%);
   }
-  18% {
+  20%,
+  80%,
+  100% {
     transform: translate(-50%, -50%);
   }
   60% {
     transform: translate(-50%, -65%);
   }
-  80% {
-    transform: translate(-50%, -50%);
-  }
   90% {
     transform: translate(-50%, -53%);
-  }
-  100% {
-    transform: translate(-50%, -50%);
   }
 }
 

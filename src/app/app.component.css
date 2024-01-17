@@ -9,8 +9,13 @@
   font-family: "Allura";
   font-size: 3rem;
 }
+.last-sentence {
+  margin-top: 0.5rem;
+  display: block;
+}
 header p {
   margin-bottom: 2rem;
+  text-align: justify;
 }
 .modal-container .actions {
   display: grid;
@@ -31,6 +36,7 @@ header p {
   text-transform: uppercase;
   border-radius: 0.3rem;
   cursor: pointer;
+  width: 100%;
 }
 .content {
   margin-top: 5rem;
@@ -58,13 +64,26 @@ header p {
   padding: 0.1rem 0.6rem;
 }
 
-.modal-data input {
+.modal-data input,
+.duration input,
+.easing input {
   border: none;
   border-bottom: 2px solid rgb(0, 141, 0);
   padding: 0.3rem 0;
   outline: none;
   caret-color: rgb(0, 141, 0);
   font-size: 1rem;
+}
+.duration input,
+.easing input {
+  padding: 0;
+  border-bottom: 1px solid darkred;
+  font-size: 0.9rem;
+  width: 100%;
+}
+.duration,
+.easing {
+  margin-top: 0.7rem;
 }
 .modal-data input#M3-content {
   caret-color: blueviolet;
@@ -80,4 +99,27 @@ header p {
   padding: 1rem;
   border: 1px solid grey;
   border-radius: 0.3rem;
+}
+.animations-options {
+  margin: 0.5rem 0;
+}
+.animations-options select {
+  padding: 0.3rem;
+  cursor: pointer;
+  border: 1px solid rgb(116 0 0);
+  width: 100%;
+}
+.M2 .animations-options select {
+  border: 1px solid rgb(0, 100, 5);
+}
+.M3 .animations-options select {
+  border: 1px solid blueviolet;
+}
+.M2 .duration input,
+.M2 .easing input {
+  border-bottom: 1px solid rgb(0, 100, 5);
+}
+.M3 .duration input,
+.M3 .easing input {
+  border-bottom: 1px solid blueviolet;
 }

@@ -104,7 +104,7 @@ In the following example, `ModalContentComponent` is a component you should crea
 Any type of data can be provided between components. Create the corresponding property (here, `type`) in your component (here, `ModalContentComponent`) and the property will be assigned with the provided value.
 
 In your `ModalContentComponent`:
-To pass information from the `ModalContentComponent` to your current component, inject the `ModalService` through regular dependency injection and call the `close(data)` method from the service with any data you wish to send back to your component. This method returns an RxJs subject, so subscribe to it as shown in the above example.
+To pass information from the `ModalContentComponent` to your current component, inject the `ModalService` through regular dependency injection and call the `close(data)` method from the service with any data you wish to send back to your component. This method returns an RxJs subject, so subscribe to it as shown in the above example. It is not necessary to unsubscribe from the subscription since it will automatically `complete()` in the service.
 
 ```
   <!-- Inside ModalContentComponent -->
@@ -114,8 +114,6 @@ To pass information from the `ModalContentComponent` to your current component, 
 ```
 
 Publicly available methods have been exhaustively documented and respect an interface, so you should get autocomplete and help from your code editor. Press on `CTRL + space` to get help on the available properties in the `Options` object.
-
-NB: it is not necessary to unsubscribe from the subscription (see example above) since it will automatically `complete()` in the service.
 
 # ModalService
 

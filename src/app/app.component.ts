@@ -16,17 +16,17 @@ import { ModalContent4Component } from './modal-content-4/modal-content-4.compon
 })
 export class AppComponent {
   M1 = {
-    animation: 'modal-enter-scale-down',
+    animation: 'enter-scale-down',
     duration: '0.1s',
     easing: 'ease-out',
   };
   M2 = {
-    animation: 'modal-enter-going-down',
+    animation: 'enter-going-down',
     duration: '0.1s',
     easing: 'ease-out',
   };
   M3 = {
-    animation: 'modal-enter-scaling',
+    animation: 'enter-scaling',
     duration: '0.2s',
     easing: 'linear',
   };

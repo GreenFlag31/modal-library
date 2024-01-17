@@ -249,7 +249,7 @@ This library has been documented and should provide autocomplete and help from y
 
 # Performance
 
-Emphasis has been placed on performance, adopting `ChangeDetectionStrategy.OnPush` strategy. This library respects Angular's mindset and use the Angular API to create components.
+Emphasis has been placed on performance, adopting `ChangeDetectionStrategy.OnPush` strategy. This library respects Angular's mindset and use the Angular API to create components. Modal components will be removed from the DOM after closing.
 
 # Change log
 

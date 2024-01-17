@@ -125,7 +125,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
     if (!animation) {
       element.remove();
 
-      if (element.classList.contains('modal')) {
+      if (element.classList.contains('ngx-modal')) {
         this.modalClosed = true;
       } else {
         this.overlayClosed = true;

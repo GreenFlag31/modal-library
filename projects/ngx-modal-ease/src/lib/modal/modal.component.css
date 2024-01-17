@@ -18,7 +18,7 @@
 }
 
 /* Recommended: 0.2s ease-out */
-@keyframes modal-enter-going-down {
+@keyframes enter-going-down {
   from {
     transform: translate(-50%, -60%);
   }
@@ -27,7 +27,7 @@
   }
 }
 /* Recommended: 0.2s linear */
-@keyframes modal-enter-scaling {
+@keyframes enter-scaling {
   from {
     transform: scale(0.8) translate(-50%, -50%);
     transform-origin: left;
@@ -39,7 +39,7 @@
 }
 
 /* Recommended: 0.1s ease-out */
-@keyframes modal-enter-scale-down {
+@keyframes enter-scale-down {
   from {
     transform: scale(1.5) translate(-50%, -60%);
     transform-origin: left;

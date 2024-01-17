@@ -138,6 +138,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
    * Apply the leaving animations and clean the DOM. Three different use cases.
    */
   close() {
+    // const lastModalInstance =
     Object.assign(this, this.modalService.modalInstances.pop());
     this.modalService.layerLevel -= 1;
     this.modal.nativeElement.style.animation = this.modalLeaveAnimation;

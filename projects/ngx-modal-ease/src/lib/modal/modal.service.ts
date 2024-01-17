@@ -49,9 +49,12 @@ export class ModalService {
    *   overlay: {
    *     leave: 'fade-out 0.3s',
    *   },
-   *   size: {
-   *     padding: '1rem',
+   *   data: {
+   *     type: 'Angular modal library',
    *   },
+   * })
+   * .subscribe((dataFromComponent) => {
+   *    ...
    * });
    * ```
    */
@@ -102,8 +105,8 @@ export class ModalService {
    * Close all modal instances.
    */
   closeAll() {
-    for (const modal of this.modalInstances) {
-      modal.close();
+    for (let i = this.modalInstances.length - 1; i > -1; i--) {
+      this.modalInstances[i].close();
     }
   }
 }

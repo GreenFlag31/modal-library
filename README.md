@@ -59,17 +59,17 @@ Options {
 | -------------------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <span style="background-color:#f2f2f2;">enter</span>           | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Define the enter animation for the modal or the overlay respecting the [shorthand animation property](https://developer.mozilla.org/en-US/docs/Web/CSS/animation).</span> |
 | leave                                                          |                                                                    | Define the leave animation for the modal or the overlay respecting the [shorthand animation property](https://developer.mozilla.org/en-US/docs/Web/CSS/animation).                                                |
-| <span style="background-color:#f2f2f2;">top</span>             | <span style="background-color:#f2f2f2;">50</span>                  | <span style="background-color:#f2f2f2;">Top position of the modal in percent.</span>                                                                                                                              |
-| left                                                           | 50                                                                 | Left position of the modal in percent.                                                                                                                                                                            |
-| <span style="background-color:#f2f2f2;">backgroundColor</span> | <span style="background-color:#f2f2f2;">rgba(0, 0, 0, 0.4);</span> | <span style="background-color:#f2f2f2;">Background color of the overlay. Can be defined in any color notation.</span>                                                                                             |
+| <span style="background-color:#f2f2f2;">top</span>             | <span style="background-color:#f2f2f2;">50</span>                  | <span style="background-color:#f2f2f2;">Top position of the modal in percent. Can be defined in any measure units.</span>                                                                                         |
+| left                                                           | 50                                                                 | Left position of the modal in percent. Can be defined in any measure units.                                                                                                                                       |
+| <span style="background-color:#f2f2f2;">backgroundColor</span> | <span style="background-color:#f2f2f2;">rgba(0, 0, 0, 0.4);</span> | <span style="background-color:#f2f2f2;">Background color of the overlay. Can be defined in any color notation (rgba, hex, hsl, ...).</span>                                                                       |
 | <span style="background-color:#f2f2f2;">minHeight</span>       | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Minimum height of the modal. Can be defined in any measure units.</span>                                                                                                  |
 | <span style="background-color:#f2f2f2;">height</span>          | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Height of the modal. Can be defined in any measure units.</span>                                                                                                          |
 | <span style="background-color:#f2f2f2;">width</span>           | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Width of the modal. Can be defined in any measure units.</span>                                                                                                           |
 | <span style="background-color:#f2f2f2;">maxWidth</span>        | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Max width of the modal. Can be defined in any measure units.</span>                                                                                                       |
 | <span style="background-color:#f2f2f2;">padding</span>         | <span style="background-color:#f2f2f2;">0.5rem</span>              | <span style="background-color:#f2f2f2;">Padding to be applied on the modal. Can be defined in any measure units.</span>                                                                                           |
-| <span style="background-color:#f2f2f2;">escape</span>          | <span style="background-color:#f2f2f2;">true</span>                | <span style="background-color:#f2f2f2;">Press escape to close the current modal.</span>                                                                                                                           |
-| <span style="background-color:#f2f2f2;">click</span>           | <span style="background-color:#f2f2f2;">true</span>                | <span style="background-color:#f2f2f2;">Click outside of the modal to close the current modal.</span>                                                                                                             |
-| <span style="background-color:#f2f2f2;">data</span>            | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Serve as data communication between components. Any type of data is supported.</span>                                                                                     |
+| <span style="background-color:#f2f2f2;">escape</span>          | <span style="background-color:#f2f2f2;">true</span>                | <span style="background-color:#f2f2f2;">Enable escape to close the current modal.</span>                                                                                                                          |
+| <span style="background-color:#f2f2f2;">click</span>           | <span style="background-color:#f2f2f2;">true</span>                | <span style="background-color:#f2f2f2;">Enable click outside of the modal to close the current modal.</span>                                                                                                      |
+| <span style="background-color:#f2f2f2;">data</span>            | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Data communication between components under the form of key-value pairs. Any type of data is supported.</span>                                                            |
 
 # Complete Example
 
@@ -106,11 +106,31 @@ Any type of data can be provided between components. Create the corresponding pr
 In your `ModalContentComponent`:
 To pass information from the `ModalContentComponent` to your current component, inject the `ModalService` through regular dependency injection and call the `close(data)` method from the service with any data you wish to send back to your component. This method returns an RxJs subject, so subscribe to it as shown in the above example.
 
+```
+  <!-- Inside ModalContentComponent -->
+  onClose() {
+    this.modalService.close(this.dataToSendBack);
+  }
+```
+
 Publicly available methods have been exhaustively documented and respect an interface, so you should get autocomplete and help from your code editor. Press on `CTRL + space` to get help on the available properties in the `Options` object.
+
+# ModalService
+
+This library exposes a `ModalService` that contains the following API:
+
+```
+<!-- Opens a component inside the modal as shown above -->
+open(ComponentToBeInsideModal, Options);
+<!-- Close a modal with the possibility of data to send back -->
+close(data?);
+<!-- Close all opened modals -->
+closeAll();
+```
 
 # Ready-to-use animations keyframes
 
-This library comes with predefined and ready-to-use animations keyframes. Just fill in the `name`, `duration` and `easing function` (more info on the `animation CSS shorthand` [here](https://developer.mozilla.org/en-US/docs/Web/CSS/animation)). Those animations are 'position agnostic', so if you wish to position your modal at other `top` and `left` values than default, it will correctly work. Of course, you can create your own keyframes too.
+This library comes with predefined and ready-to-use animations keyframes. Just fill in the `name`, `duration` and `easing function` (more info on the `animation CSS shorthand` [here](https://developer.mozilla.org/en-US/docs/Web/CSS/animation)). Those animations are _position agnostic_, so if you wish to position your modal at other `top` and `left` values than default, it will correctly work. Of course, you can create your own keyframes too.
 
 ```
 /* Recommended: 0.2s ease-out */
@@ -227,7 +247,7 @@ This library has been documented and should provide autocomplete and help from y
 
 # Performance
 
-Emphasis has been placed on performance, adopting `ChangeDetectionStrategy.OnPush` strategy. This library respects Angular mindset and use the Angular API to create components.
+Emphasis has been placed on performance, adopting `ChangeDetectionStrategy.OnPush` strategy. This library respects Angular's mindset and use the Angular API to create components.
 
 # Change log
 

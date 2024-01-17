@@ -19,7 +19,7 @@ header p {
 }
 .modal-container .actions {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
   gap: 1rem;
   margin-top: 7rem;
 }

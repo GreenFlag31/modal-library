@@ -103,6 +103,7 @@ export class ModalService {
 
   /**
    * Close all modal instances.
+   * Respective animations will be applied.
    */
   closeAll() {
     for (let i = this.modalInstances.length - 1; i > -1; i--) {

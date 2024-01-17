@@ -11,7 +11,7 @@ import { ModalService } from '../../../projects/ngx-modal-ease/src/public-api';
 export class ModalContent2Component {
   constructor(private modalService: ModalService) {}
 
-  onClose2() {
+  onClose() {
     this.modalService.close();
   }
 }

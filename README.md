@@ -2,13 +2,13 @@
 
 # Description
 
-ngx-modal-ease is a versatile Angular library providing a feature-rich, simple, and performant modal component. This library supports data communication between components, custom animations, and a range of customisable options.
+ngx-modal-ease is a versatile Angular library providing a feature-rich, simple, and performant modal component. This library supports data communication between components, opening of multiple modals, custom animations, and a range of customisable options.
 
 Support Angular version starts at v17.
 
 # Demo
 
-Live demonstration of the ngx-modal-ease library [here](https://greenflag31.github.io/carousel-library/ngx-carousel-ease).
+Live demonstration of the ngx-modal-ease library [here](https://greenflag31.github.io/modal-library/ngx-modal-ease).
 
 # Installation
 
@@ -115,18 +115,22 @@ To pass information from the `ModalContentComponent` to your current component, 
 
 Publicly available methods have been exhaustively documented and respect an interface, so you should get autocomplete and help from your code editor. Press on `CTRL + space` to get help on the available properties in the `Options` object.
 
+NB: it is not necessary to unsubscribe from the subscription (see example above) since it will automatically `complete()` in the service.
+
 # ModalService
 
 This library exposes a `ModalService` that contains the following API:
 
 ```
-<!-- Opens a component inside the modal as shown above -->
-open(ComponentToBeInsideModal, Options);
-<!-- Close a modal with the possibility of data to send back -->
-close(data?);
+<!-- Opens a component inside the modal -->
+open<C>(componentToCreate: Type<C>, options?: Options);
+<!-- Close a modal with optional data to send back -->
+close(data?: unknown);
 <!-- Close all opened modals -->
 closeAll();
 ```
+
+NB: Z-index of overlay and modal start at 1000 and 2000 respectively. In case of multiple modals, z-indexes will be incremented by 1000.
 
 # Ready-to-use animations keyframes
 

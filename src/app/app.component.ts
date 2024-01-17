@@ -45,10 +45,7 @@ export class AppComponent {
       },
       size: {
         padding: '1rem',
-      },
-      actions: {
-        escape: false,
-        click: false,
+        width: '600px',
       },
     });
   }
@@ -80,9 +77,5 @@ export class AppComponent {
       .subscribe((data) => {
         this.M3Information = data || '🚫 No data';
       });
-  }
-
-  onInputChange() {
-    console.log('change');
   }
 }

@@ -18,6 +18,11 @@ export class ModalContentComponent {
   }
 
   onOpen() {
-    this.modalService.open(ModalContent2Component);
+    this.modalService.open(ModalContent2Component, {
+      size: {
+        width: '400px',
+        maxWidth: '100%',
+      },
+    });
   }
 }

@@ -25,6 +25,11 @@
   src: url("./assets/Allura/Allura-Regular.ttf") format("truetype");
   font-weight: 400;
 }
+.emphasize {
+  background: #e8e8e8;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.3rem;
+}
 
 * {
   box-sizing: border-box;

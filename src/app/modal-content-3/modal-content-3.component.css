@@ -7,8 +7,8 @@
   font-weight: normal;
   text-align: center;
 }
-.modal-content p.second-p {
-  margin-bottom: 1rem;
+.modal-content p.third-p {
+  margin-top: 1rem;
 }
 .actions {
   margin-top: 5rem;
@@ -27,14 +27,10 @@
   color: #fff;
   border-radius: 0.3rem;
   padding: 0.1rem 0.6rem;
+  display: inline-block;
 }
 .coming-from-caller.no-data {
   padding: 0;
   background: none;
   color: #000;
-}
-.emphasize {
-  background: #e8e8e8;
-  padding: 0.1rem 0.3rem;
-  border-radius: 0.3rem;
 }

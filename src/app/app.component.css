@@ -21,7 +21,7 @@ header p {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
   gap: 1rem;
-  margin-top: 7rem;
+  margin: 7rem 0 13rem;
 }
 .button-container {
   display: flex;
@@ -122,4 +122,11 @@ header p {
 .M3 .duration input,
 .M3 .easing input {
   border-bottom: 1px solid blueviolet;
+}
+.author {
+  display: flex;
+  justify-content: center;
+}
+.author a {
+  color: blueviolet;
 }

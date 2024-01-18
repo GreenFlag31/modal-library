@@ -9,7 +9,7 @@
   text-align: center;
 }
 .actions {
-  margin-top: 5rem;
+  margin-top: 3rem;
   display: flex;
   justify-content: flex-end;
 }
@@ -20,4 +20,10 @@
   border: none;
   text-transform: uppercase;
   cursor: pointer;
+}
+p.last {
+  margin-top: 1.5rem;
+}
+p span.emphasize {
+  color: #000;
 }

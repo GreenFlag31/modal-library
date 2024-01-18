@@ -21,12 +21,6 @@
   cursor: pointer;
 }
 
-.emphasize {
-  background: #e8e8e8;
-  padding: 0.1rem 0.3rem;
-  border-radius: 0.3rem;
-}
-
 .M3-data {
   display: flex;
   flex-direction: column;
@@ -38,4 +32,7 @@
   padding: 0.3rem 0;
   outline: none;
   caret-color: blueviolet;
+}
+.last-p {
+  margin-top: 3rem;
 }

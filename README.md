@@ -2,7 +2,7 @@
 
 # Description
 
-ngx-modal-ease is a versatile Angular library providing a feature-rich, simple, and performant modal component. This library supports data communication between components, opening of multiple modals, custom animations, and a range of customisable options.
+ngx-modal-ease is a versatile Angular library providing a lightweight, simple, and performant modal. This library supports data communication between components, opening of multiple modals, custom animations, and a range of customisable options.
 
 Support Angular version starts at v17.
 
@@ -17,9 +17,6 @@ You can install the library using the following command:
 ```
 npm i ngx-modal-ease
 ```
-
-Then, add the `CarouselModule` in the imports array of the hosting component (if standalone) or to your `module`.
-Finally, inject the `ModalService` in your component through regular dependancy injection.
 
 # Options
 
@@ -122,8 +119,10 @@ This library exposes a `ModalService` that contains the following API:
 ```
 <!-- Opens a component inside the modal -->
 open<C>(componentToCreate: Type<C>, options?: Options);
+
 <!-- Close a modal with optional data to send back -->
 close(data?: unknown);
+
 <!-- Close all opened modals -->
 closeAll();
 ```
@@ -136,7 +135,7 @@ This library comes with predefined and ready-to-use animations keyframes. Just f
 
 ```
 /* Recommended: 0.2s ease-out */
-@keyframes modal-enter-going-down {
+@keyframes enter-going-down {
   from {
     transform: translate(-50%, -60%);
   }
@@ -146,7 +145,7 @@ This library comes with predefined and ready-to-use animations keyframes. Just f
 }
 
 /* Recommended: 0.2s linear */
-@keyframes modal-enter-scaling {
+@keyframes enter-scaling {
   from {
     transform: scale(0.8) translate(-50%, -50%);
     transform-origin: left;
@@ -158,7 +157,7 @@ This library comes with predefined and ready-to-use animations keyframes. Just f
 }
 
 /* Recommended: 0.1s ease-out */
-@keyframes modal-enter-scale-down {
+@keyframes enter-scale-down {
   from {
     transform: scale(1.5) translate(-50%, -60%);
     transform-origin: left;

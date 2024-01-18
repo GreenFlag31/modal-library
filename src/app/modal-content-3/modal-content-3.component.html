@@ -1,15 +1,20 @@
 <div class="modal-content">
-  <h2>Modal 2 title</h2>
+  <h2>Modal with data communication</h2>
   <p>
     This present modal contains the content of the component
     <span class="emphasize">{{ name }}</span
     >.
   </p>
-  <p class="second-p">
-    The following data has been send from the caller to the callee component:
+  <p>
+    The following data has been send from the calling component to the modal:
   </p>
   <p class="coming-from-caller" [class.no-data]="!M2Info">
     {{ M2Info || "🚫 No data" }}
+  </p>
+  <p class="third-p">
+    This has been possible by passing key-value pairs in the
+    <span class="emphasize">Options</span> object, under the
+    <span class="emphasize">data</span> sub-object.
   </p>
 
   <div class="actions">

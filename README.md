@@ -72,13 +72,13 @@ Options {
 
 Inject the ModalService through regular dependency injection in your component.
 
-In the following example, `ModalContentComponent` is a component you should create and pass as first parameter. As second parameter, provide an object respecting the `Options` interface (see above).
+In the following example, `ModalContentComponent` is the content of the modal and should be provided as first parameter. As second parameter, provide an object respecting the `Options` interface (see above).
 
 ```
   this.modalService.open(ModalContentComponent, {
     modal: {
       <!-- animation -->
-      enter: 'modal-enter-scale-down 0.1s ease-out',
+      enter: 'enter-scale-down 0.1s ease-out',
     },
     overlay: {
       <!-- animation -->
@@ -86,10 +86,10 @@ In the following example, `ModalContentComponent` is a component you should crea
     },
     size: {
       <!-- modal configuration -->
-      padding: '1rem',
+      width: '400px',
     },
     data: {
-      <!-- data communication -->
+      <!-- data to ModalContentComponent -->
       type: 'Angular modal library',
     },
   })
@@ -110,7 +110,7 @@ To pass information from the `ModalContentComponent` to your current component, 
   }
 ```
 
-Publicly available methods have been exhaustively documented and respect an interface, so you should get autocomplete and help from your code editor. Press on `CTRL + space` to get help on the available properties in the `Options` object.
+Publicly available methods have been exhaustively documented and typed, so you should get autocomplete and help from your code editor. Press on `CTRL + space` to get help on the available properties in the `Options` object.
 
 # ModalService
 
@@ -240,7 +240,7 @@ If you create your own keyframes, I would recommend to create a new file `modal-
 
 # SSR (Server Side Rendering)
 
-This library supports Server Side Rendering (SSR). The modal will not instantiate during server-side execution.
+This library supports Server Side Rendering (SSR). The modal will not instantiate during server-side execution, as it requires access to the DOM API.
 
 # DX Friendly
 

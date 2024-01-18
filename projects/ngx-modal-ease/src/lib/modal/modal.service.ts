@@ -2,13 +2,16 @@ import {
   ApplicationRef,
   ComponentRef,
   EnvironmentInjector,
+  Inject,
   Injectable,
+  PLATFORM_ID,
   Type,
   createComponent,
 } from '@angular/core';
 import { ModalComponent } from './modal.component';
 import { Options } from './modal-options';
 import { Subject } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -29,11 +32,15 @@ export class ModalService {
    * Internal use only.
    */
   layerLevel = 0;
+  private isBrowser = true;
 
   constructor(
     private appRef: ApplicationRef,
-    private injector: EnvironmentInjector
-  ) {}
+    private injector: EnvironmentInjector,
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   /**
    * Opens a custom component within a modal.
@@ -67,6 +74,8 @@ export class ModalService {
   }
 
   private openComponent<C>(componentToCreate: Type<C>, options?: Options) {
+    if (!this.isBrowser) return;
+
     this.newComponent = createComponent(componentToCreate, {
       environmentInjector: this.injector,
     });

@@ -1,4 +1,4 @@
-# ngx-carousel-ease
+# ngx-modal-ease
 
 # Description
 

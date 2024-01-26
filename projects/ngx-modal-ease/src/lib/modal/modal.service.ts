@@ -50,7 +50,7 @@ export class ModalService {
    * ```
    * this.modalService.open(ModalContentComponent, {
    *   modal: {
-   *     enter: 'modal-enter-scale-down 0.1s ease-out',
+   *     enter: 'enter-scale-down 0.1s ease-out',
    *     leave: 'fade-out 0.5s',
    *   },
    *   overlay: {
@@ -100,7 +100,7 @@ export class ModalService {
 
   /**
    * Close the current modal.
-   * @param data The optional data to emit on closing the modal (communication from callee to caller).
+   * @param data The optional data to emit on closing the modal (communication from modal to caller).
    */
   close(data?: unknown) {
     this.newModalComponent.instance.close();

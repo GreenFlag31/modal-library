@@ -15,7 +15,7 @@ export class ModalContent4Component {
 
   constructor(private modalService: ModalService) {}
 
-  onClose() {
+  onConfirm() {
     this.modalService.close(this.M3Info);
   }
 }

@@ -14,7 +14,7 @@ export class ModalContentComponent {
   constructor(private modalService: ModalService) {}
 
   onClose() {
-    this.modalService.close();
+    this.modalService.close(this.name);
   }
 
   onOpen() {

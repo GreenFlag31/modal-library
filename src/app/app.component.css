@@ -14,9 +14,29 @@
   display: block;
 }
 header p {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   text-align: justify;
 }
+header button.add-star {
+  border: none;
+  color: #fff;
+  background: #000;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+.add-star a {
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  padding: 0.5rem 1rem;
+  gap: 0.5rem;
+}
+.add-star svg {
+  fill: gold;
+  height: 16px;
+  width: 16px;
+}
+
 .modal-container .actions {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));

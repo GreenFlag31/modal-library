@@ -9,7 +9,7 @@ import {
   createComponent,
 } from '@angular/core';
 import { ModalComponent } from './modal.component';
-import { Options } from './modal-options';
+import { Options, SubjectModal } from './modal-options';
 import { Subject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -33,6 +33,7 @@ export class ModalService {
    */
   layerLevel = 0;
   private isBrowser = true;
+  private modalSubjects: SubjectModal[] = [];
 
   constructor(
     private appRef: ApplicationRef,
@@ -67,9 +68,9 @@ export class ModalService {
    */
   open<C>(componentToCreate: Type<C>, options?: Options) {
     this.options = options;
-    this.openComponent(componentToCreate, options);
 
     this.modalSubject = new Subject();
+    this.openComponent(componentToCreate, options);
     return this.modalSubject;
   }
 
@@ -86,6 +87,8 @@ export class ModalService {
     });
 
     this.instantiateProps(options?.data);
+    this.modalSubjects.push({ subject: this.modalSubject });
+
     document.body.appendChild(this.newModalComponent.location.nativeElement);
 
     this.appRef.attachView(this.newComponent.hostView);
@@ -106,8 +109,9 @@ export class ModalService {
     this.newModalComponent.instance.close();
     this.options = undefined;
 
-    this.modalSubject.next(data);
-    this.modalSubject.complete();
+    const currentSubject = this.modalSubjects.pop() as SubjectModal;
+    currentSubject.subject.next(data);
+    currentSubject.subject.complete();
   }
 
   /**
@@ -118,5 +122,7 @@ export class ModalService {
     for (let i = this.modalInstances.length - 1; i > -1; i--) {
       this.modalInstances[i].close();
     }
+
+    this.modalSubjects = [];
   }
 }

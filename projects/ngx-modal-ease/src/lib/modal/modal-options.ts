@@ -1,3 +1,5 @@
+import { Subject } from 'rxjs';
+
 export interface Options {
   modal?: {
     enter?: string;
@@ -24,4 +26,8 @@ export interface Options {
   data?: {
     [key: string]: unknown;
   };
+}
+
+export interface SubjectModal {
+  subject: Subject<any>;
 }

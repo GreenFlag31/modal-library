@@ -6,10 +6,8 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation,
   OnInit,
-  Inject,
-  PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ModalService } from './modal.service';
 import { Options } from './modal-options';
 import { Observable, Subscription, filter, fromEvent } from 'rxjs';
@@ -35,23 +33,17 @@ export class ModalComponent implements OnInit, AfterViewInit {
   modalClosed = false;
   layerLevel = 0;
   escapeKeySubscription!: Subscription;
-  isBrowser = true;
 
   constructor(
     private modalService: ModalService,
-    private element: ElementRef<HTMLElement>,
-    @Inject(PLATFORM_ID) platformId: Object
-  ) {
-    this.isBrowser = isPlatformBrowser(platformId);
-  }
+    private element: ElementRef<HTMLElement>
+  ) {}
 
   /**
    * Initialise variable and escape key on document.
    * Multiple modals might register multiple event listener, hence the 'layerLevel' variable and two times the condition check for the escape option.
    */
   ngOnInit() {
-    if (!this.isBrowser) return;
-
     this.options = this.modalService.options;
     this.modalService.modalInstances.push(this);
     this.modalService.layerLevel += 1;
@@ -77,8 +69,6 @@ export class ModalComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (!this.isBrowser) return;
-
     this.addOptionsAndAnimations();
   }
 
@@ -136,9 +126,11 @@ export class ModalComponent implements OnInit, AfterViewInit {
   /**
    * Clean the DOM
    * Apply the leaving animations and clean the DOM. Three different use cases.
+   * LIFO
    */
   close() {
     Object.assign(this, this.modalService.modalInstances.pop());
+
     this.modalService.layerLevel -= 1;
     this.modal.nativeElement.style.animation = this.modalLeaveAnimation;
     this.overlay.nativeElement.style.animation = this.overlayLeaveAnimation;
@@ -156,7 +148,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
       this.modalLeaveAnimation
     );
     this.removeElementIfNotAnimated(
-      this.overlay.nativeElement,
+      this.overlay?.nativeElement,
       this.overlayLeaveAnimation
     );
 

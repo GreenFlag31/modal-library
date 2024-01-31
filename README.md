@@ -1,4 +1,4 @@
-# ngx-carousel-ease
+# ngx-modal-ease
 
 # Description
 
@@ -252,6 +252,12 @@ Emphasis has been placed on performance, adopting `ChangeDetectionStrategy.OnPus
 
 # Change log
 
+Version 0.0.4: Correction of a communication bug between components. Every modal has now its own subject to send back data to the calling component.
+
 # Report a Bug
 
 Please provide a detailed description of the encountered bug, including your options and the steps/actions that led to the issue. An accurate description will help me to reproduce the issue.
+
+# Ngx-ease serie
+
+You like this library? Discover the ngx-ease serie [here](https://www.npmjs.com/~greenflag31).

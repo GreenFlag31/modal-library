@@ -1,12 +1,7 @@
 .modal-content {
   padding: 1rem;
-  background: rgb(103, 0, 0);
-  color: #fff;
-}
-.modal-content h2 {
-  margin-bottom: 3rem;
-  font-weight: normal;
-  text-align: center;
+  background: #fff;
+  color: #000;
 }
 .actions {
   margin-top: 3rem;
@@ -20,10 +15,4 @@
   border: none;
   text-transform: uppercase;
   cursor: pointer;
-}
-p.last {
-  margin-top: 1.5rem;
-}
-p span.emphasize {
-  color: #000;
 }

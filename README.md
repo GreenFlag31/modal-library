@@ -252,7 +252,8 @@ Emphasis has been placed on performance, adopting `ChangeDetectionStrategy.OnPus
 
 # Change log
 
-Version 0.0.4: Correction of a communication bug between components. Every modal has now its own subject to send back data to the calling component.
+Version 0.0.4: Fixed of a communication bug between components. Every modal has now its own subject to send back data to the calling component.
+Version 0.0.5: Fixed a bug between components that prevented the component from closing when applying different animations with multiple stacked modals.
 
 # Report a Bug
 

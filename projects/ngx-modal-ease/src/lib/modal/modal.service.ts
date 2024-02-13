@@ -19,7 +19,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class ModalService {
   private newModalComponent!: ComponentRef<ModalComponent>;
   private newComponent!: ComponentRef<any>;
-  private modalSubject!: Subject<unknown>;
+  private modalSubject!: Subject<any>;
   /**
    * Internal use only.
    */
@@ -106,8 +106,9 @@ export class ModalService {
    * @param data The optional data to emit on closing the modal (communication from modal to caller).
    */
   close(data?: unknown) {
-    this.newModalComponent.instance.close();
-    this.options = undefined;
+    this.modalInstances.pop()?.close();
+
+    if (this.modalSubjects.length === 0) return;
 
     const currentSubject = this.modalSubjects.pop() as SubjectModal;
     currentSubject.subject.next(data);

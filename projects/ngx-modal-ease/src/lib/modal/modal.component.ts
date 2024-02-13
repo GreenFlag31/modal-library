@@ -126,11 +126,9 @@ export class ModalComponent implements OnInit, AfterViewInit {
   /**
    * Clean the DOM
    * Apply the leaving animations and clean the DOM. Three different use cases.
-   * LIFO
+   * Last In First Out
    */
   close() {
-    Object.assign(this, this.modalService.modalInstances.pop());
-
     this.modalService.layerLevel -= 1;
     this.modal.nativeElement.style.animation = this.modalLeaveAnimation;
     this.overlay.nativeElement.style.animation = this.overlayLeaveAnimation;

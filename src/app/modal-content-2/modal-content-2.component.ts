@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalService } from '../../../projects/ngx-modal-ease/src/public-api';
+import { ModalContentTest1Component } from '../modal-content-test-1/modal-content-test-1.component';
 
 @Component({
   selector: 'app-modal-content-2',
@@ -13,5 +14,14 @@ export class ModalContent2Component {
 
   onClose() {
     this.modalService.close();
+  }
+
+  onOpen() {
+    this.modalService.open(ModalContentTest1Component, {
+      size: {
+        width: '400px',
+        maxWidth: '100%',
+      },
+    });
   }
 }

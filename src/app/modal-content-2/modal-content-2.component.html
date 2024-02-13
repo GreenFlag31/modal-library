@@ -1,9 +1,6 @@
 <div class="modal-content">
   <h2>Multi layered modal</h2>
-  <p>
-    There is no limit on the number of modals that can be opened (but UI/UX has
-    to be taken into consideration).
-  </p>
+  <p>There is no limit on the number of modals that can be opened.</p>
   <p class="last">
     Press <span class="emphasize">Escape</span> or
     <span class="emphasize">click outside</span> of the modal to close it. It
@@ -11,6 +8,7 @@
   </p>
 
   <div class="actions">
+    <button (click)="onOpen()">Open new modal</button>
     <button (click)="onClose()">Close</button>
   </div>
 </div>

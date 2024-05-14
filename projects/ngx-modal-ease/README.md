@@ -257,6 +257,8 @@ Version 0.0.5: Fixed a bug between components that prevented the component from 
 
 Version 0.0.6: Added V16 backward compatibility support.
 
+Version 0.0.8: Incorporated internal component destruction to ensure proper invocation of the child's OnDestroy lifecycle hook.
+
 # Report a Bug
 
 Please provide a detailed description of the encountered bug, including your options and the steps/actions that led to the issue. An accurate description will help me to reproduce the issue.

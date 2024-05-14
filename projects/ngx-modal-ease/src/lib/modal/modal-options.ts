@@ -1,3 +1,4 @@
+import { ComponentRef } from '@angular/core';
 import { Subject } from 'rxjs';
 
 export interface Options {
@@ -29,5 +30,6 @@ export interface Options {
 }
 
 export interface SubjectModal {
-  subject: Subject<any>;
+  subject: Subject<unknown>;
+  contentCpRef: ComponentRef<any>;
 }

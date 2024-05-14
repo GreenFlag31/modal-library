@@ -87,7 +87,10 @@ export class ModalService {
     });
 
     this.instantiateProps(options?.data);
-    this.modalSubjects.push({ subject: this.modalSubject });
+    this.modalSubjects.push({
+      subject: this.modalSubject,
+      contentCpRef: this.newComponent,
+    });
 
     document.body.appendChild(this.newModalComponent.location.nativeElement);
 
@@ -110,9 +113,10 @@ export class ModalService {
 
     if (this.modalSubjects.length === 0) return;
 
-    const currentSubject = this.modalSubjects.pop() as SubjectModal;
-    currentSubject.subject.next(data);
-    currentSubject.subject.complete();
+    const modalSubject = this.modalSubjects.pop() as SubjectModal;
+    modalSubject.contentCpRef.destroy();
+    modalSubject.subject.next(data);
+    modalSubject.subject.complete();
   }
 
   /**
@@ -121,9 +125,7 @@ export class ModalService {
    */
   closeAll() {
     for (let i = this.modalInstances.length - 1; i > -1; i--) {
-      this.modalInstances[i].close();
+      this.close();
     }
-
-    this.modalSubjects = [];
   }
 }

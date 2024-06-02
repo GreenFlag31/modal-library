@@ -64,7 +64,7 @@ export class ModalService {
    * });
    * ```
    */
-  open<C>(componentToCreate: Type<C>, options?: Options): Promise<unknown> {
+  open<C>(componentToCreate: Type<C>, options?: Options) {
     if (!this.isBrowser) return new Promise<void>((reject) => reject());
 
     this.options = options;

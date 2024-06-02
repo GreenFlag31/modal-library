@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalService } from '../../../projects/ngx-modal-ease/src/public-api';
 import { ModalContent2Component } from '../modal-content-2/modal-content-2.component';
 

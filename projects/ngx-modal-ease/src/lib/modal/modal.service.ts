@@ -109,12 +109,11 @@ export class ModalService {
    * @param data The optional data to emit on closing the modal (communication from modal to caller).
    */
   close(data?: unknown) {
-    this.modalInstances.pop()?.close();
-
     if (this.modalSubjects.length === 0) return;
 
     const modalSubject = this.modalSubjects.pop() as SubjectModal;
-    modalSubject.contentCpRef.destroy();
+    this.modalInstances.pop()?.close(modalSubject);
+
     modalSubject.subject.next(data);
     modalSubject.subject.complete();
   }

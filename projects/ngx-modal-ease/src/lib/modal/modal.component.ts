@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalService } from './modal.service';
-import { Options } from './modal-options';
+import { Options, SubjectModal } from './modal-options';
 import { Observable, Subscription, filter, fromEvent } from 'rxjs';
 
 @Component({
@@ -128,7 +128,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
    * Apply the leaving animations and clean the DOM. Three different use cases.
    * Last In First Out
    */
-  close() {
+  close(modalSubject: SubjectModal) {
     this.modalService.layerLevel -= 1;
     this.modal.nativeElement.style.animation = this.modalLeaveAnimation;
     this.overlay.nativeElement.style.animation = this.overlayLeaveAnimation;
@@ -137,6 +137,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
     // First: no animations on both elements
     if (!this.modalLeaveAnimation && !this.overlayLeaveAnimation) {
       this.element.nativeElement.remove();
+      modalSubject.contentCpRef.destroy();
       return;
     }
 
@@ -150,22 +151,27 @@ export class ModalComponent implements OnInit, AfterViewInit {
       this.overlayLeaveAnimation
     );
 
-    // Third: Both animated with differents animation time, remove modal component as soon as last one ends
+    // Third: Both animated with differents animation time
     this.modalAnimationEnd.subscribe(() => {
       this.modal.nativeElement.remove();
       this.modalClosed = true;
-      this.removeModalComponent(this.overlayClosed);
+      this.removeModalComponent(modalSubject);
     });
     this.overlayAnimationEnd.subscribe(() => {
       this.overlay.nativeElement.remove();
       this.overlayClosed = true;
-      this.removeModalComponent(this.modalClosed);
+      this.removeModalComponent(modalSubject);
     });
   }
 
-  removeModalComponent(modalOrOverlayClosed: boolean) {
-    if (modalOrOverlayClosed) {
+  /**
+   * Remove element once both animations finish.
+   * Remove component through the Angular API to trigger the onDestroy event.
+   */
+  removeModalComponent(modalSubject: SubjectModal) {
+    if (this.modalClosed && this.overlayClosed) {
       this.element.nativeElement.remove();
+      modalSubject.contentCpRef.destroy();
     }
   }
 }

@@ -74,7 +74,7 @@ export class AppComponent {
           padding: '0.5rem',
         },
       })
-      .subscribe((data) => {
+      .then((data) => {
         this.M3Information = data || '🚫 No data';
       });
   }

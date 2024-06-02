@@ -33,3 +33,8 @@ export interface SubjectModal {
   subject: Subject<unknown>;
   contentCpRef: ComponentRef<any>;
 }
+
+export interface PromiseModal {
+  resolve: Function;
+  contentCpRef: ComponentRef<any>;
+}

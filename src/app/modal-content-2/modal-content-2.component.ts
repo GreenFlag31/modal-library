@@ -12,6 +12,6 @@ export class ModalContent2Component {
   constructor(private modalService: ModalService) {}
 
   onClose() {
-    this.modalService.close();
+    this.modalService.close('ModalContent2Component');
   }
 }

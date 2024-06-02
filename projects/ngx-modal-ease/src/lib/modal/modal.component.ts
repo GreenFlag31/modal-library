@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalService } from './modal.service';
-import { Options } from './modal-options';
-import { Observable, Subscription, filter, fromEvent } from 'rxjs';
+import { Options, PromiseModal } from './modal-options';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -25,8 +25,6 @@ export class ModalComponent implements OnInit, AfterViewInit {
   @ViewChild('modal') modal!: ElementRef<HTMLDivElement>;
   @ViewChild('overlay') overlay!: ElementRef<HTMLDivElement>;
   options!: Options | undefined;
-  modalAnimationEnd!: Observable<Event>;
-  overlayAnimationEnd!: Observable<Event>;
   modalLeaveAnimation = '';
   overlayLeaveAnimation = '';
   overlayClosed = false;
@@ -39,10 +37,6 @@ export class ModalComponent implements OnInit, AfterViewInit {
     private element: ElementRef<HTMLElement>
   ) {}
 
-  /**
-   * Initialise variable and escape key on document.
-   * Multiple modals might register multiple event listener, hence the 'layerLevel' variable and two times the condition check for the escape option.
-   */
   ngOnInit() {
     this.options = this.modalService.options;
     this.modalService.modalInstances.push(this);
@@ -51,25 +45,33 @@ export class ModalComponent implements OnInit, AfterViewInit {
 
     if (this.options?.actions?.escape === false) return;
 
-    this.escapeKeySubscription = fromEvent<KeyboardEvent>(document, 'keydown')
-      .pipe(filter((event) => event.key === 'Escape'))
-      .subscribe(() => {
-        if (this.options?.actions?.escape === false) return;
-
-        if (this.layerLevel === this.modalService.layerLevel) {
-          this.modalService.close();
-        }
-      });
+    document.addEventListener('keydown', this.handleEscape);
   }
+
+  ngAfterViewInit() {
+    this.addOptionsAndAnimations();
+  }
+
+  /**
+   * Multiple modals might register multiple event listener, hence the 'layerLevel' variable and two times the condition check for the escape option.
+   * Arrow function to respect the this instance.
+   */
+  handleEscape = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      console.log('escape');
+
+      if (this.options?.actions?.escape === false) return;
+
+      if (this.layerLevel === this.modalService.layerLevel) {
+        this.modalService.close();
+      }
+    }
+  };
 
   onClose() {
     if (this.options?.actions?.click === false) return;
 
     this.modalService.close();
-  }
-
-  ngAfterViewInit() {
-    this.addOptionsAndAnimations();
   }
 
   /**
@@ -101,14 +103,8 @@ export class ModalComponent implements OnInit, AfterViewInit {
     this.overlay.nativeElement.style.backgroundColor =
       this.options?.overlay?.backgroundColor || '';
 
-    this.modalAnimationEnd = fromEvent(
-      this.modal.nativeElement,
-      'animationend'
-    );
-    this.overlayAnimationEnd = fromEvent(
-      this.overlay.nativeElement,
-      'animationend'
-    );
+    this.modal.nativeElement.getBoundingClientRect();
+    this.overlay.nativeElement.getBoundingClientRect();
   }
 
   removeElementIfNotAnimated(element: HTMLDivElement, animation: string) {
@@ -128,11 +124,12 @@ export class ModalComponent implements OnInit, AfterViewInit {
    * Apply the leaving animations and clean the DOM. Three different use cases.
    * Last In First Out
    */
-  close() {
+  close(contentCp: PromiseModal) {
     this.modalService.layerLevel -= 1;
+
     this.modal.nativeElement.style.animation = this.modalLeaveAnimation;
     this.overlay.nativeElement.style.animation = this.overlayLeaveAnimation;
-    this.escapeKeySubscription?.unsubscribe();
+    document.removeEventListener('keydown', this.handleEscape);
 
     // First: no animations on both elements
     if (!this.modalLeaveAnimation && !this.overlayLeaveAnimation) {
@@ -151,21 +148,25 @@ export class ModalComponent implements OnInit, AfterViewInit {
     );
 
     // Third: Both animated with differents animation time, remove modal component as soon as last one ends
-    this.modalAnimationEnd.subscribe(() => {
+    this.modal.nativeElement.addEventListener('animationend', () => {
       this.modal.nativeElement.remove();
       this.modalClosed = true;
-      this.removeModalComponent(this.overlayClosed);
+      this.removeModalComponent(this.overlayClosed, contentCp);
     });
-    this.overlayAnimationEnd.subscribe(() => {
+    this.overlay.nativeElement.addEventListener('animationend', () => {
       this.overlay.nativeElement.remove();
       this.overlayClosed = true;
-      this.removeModalComponent(this.modalClosed);
+      this.removeModalComponent(this.modalClosed, contentCp);
     });
   }
 
-  removeModalComponent(modalOrOverlayClosed: boolean) {
+  /**
+   * Remove modal when both animations come to an end.
+   */
+  removeModalComponent(modalOrOverlayClosed: boolean, contentCp: PromiseModal) {
     if (modalOrOverlayClosed) {
       this.element.nativeElement.remove();
+      contentCp.contentCpRef.destroy();
     }
   }
 }

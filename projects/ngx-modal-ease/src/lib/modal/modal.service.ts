@@ -9,8 +9,7 @@ import {
   createComponent,
 } from '@angular/core';
 import { ModalComponent } from './modal.component';
-import { Options, SubjectModal } from './modal-options';
-import { Subject } from 'rxjs';
+import { Options, PromiseModal } from './modal-options';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
@@ -19,7 +18,6 @@ import { isPlatformBrowser } from '@angular/common';
 export class ModalService {
   private newModalComponent!: ComponentRef<ModalComponent>;
   private newComponent!: ComponentRef<any>;
-  private modalSubject!: Subject<any>;
   /**
    * Internal use only.
    */
@@ -33,7 +31,7 @@ export class ModalService {
    */
   layerLevel = 0;
   private isBrowser = true;
-  private modalSubjects: SubjectModal[] = [];
+  private promiseContainer: PromiseModal[] = [];
 
   constructor(
     private appRef: ApplicationRef,
@@ -47,7 +45,7 @@ export class ModalService {
    * Opens a custom component within a modal.
    * @param componentToCreate The custom component to display within the modal.
    * @param options Additional options for configuring the modal appearance and animations.
-   * @returns A RxJs Subject that will emit custom data on closing the modal.
+   * @returns A Promise that will emit custom data on closing the modal.
    * ```
    * this.modalService.open(ModalContentComponent, {
    *   modal: {
@@ -61,22 +59,23 @@ export class ModalService {
    *     type: 'Angular modal library',
    *   },
    * })
-   * .subscribe((dataFromComponent) => {
+   * .then((dataFromComponent) => {
    *    ...
    * });
    * ```
    */
-  open<C>(componentToCreate: Type<C>, options?: Options) {
-    this.options = options;
+  open<C>(componentToCreate: Type<C>, options?: Options): Promise<unknown> {
+    if (!this.isBrowser) return new Promise<void>((reject) => reject());
 
-    this.modalSubject = new Subject();
+    this.options = options;
     this.openComponent(componentToCreate, options);
-    return this.modalSubject;
+
+    return new Promise((resolve) => {
+      this.promiseContainer.push({ resolve, contentCpRef: this.newComponent });
+    });
   }
 
   private openComponent<C>(componentToCreate: Type<C>, options?: Options) {
-    if (!this.isBrowser) return;
-
     this.newComponent = createComponent(componentToCreate, {
       environmentInjector: this.injector,
     });
@@ -87,13 +86,8 @@ export class ModalService {
     });
 
     this.instantiateProps(options?.data);
-    this.modalSubjects.push({
-      subject: this.modalSubject,
-      contentCpRef: this.newComponent,
-    });
 
     document.body.appendChild(this.newModalComponent.location.nativeElement);
-
     this.appRef.attachView(this.newComponent.hostView);
     this.appRef.attachView(this.newModalComponent.hostView);
   }
@@ -109,14 +103,12 @@ export class ModalService {
    * @param data The optional data to emit on closing the modal (communication from modal to caller).
    */
   close(data?: unknown) {
-    this.modalInstances.pop()?.close();
+    if (this.promiseContainer.length === 0) return;
 
-    if (this.modalSubjects.length === 0) return;
+    const modalPromise = this.promiseContainer.pop() as PromiseModal;
+    this.modalInstances.pop()?.close(modalPromise);
 
-    const modalSubject = this.modalSubjects.pop() as SubjectModal;
-    modalSubject.contentCpRef.destroy();
-    modalSubject.subject.next(data);
-    modalSubject.subject.complete();
+    if (arguments.length > 0) return modalPromise.resolve(data);
   }
 
   /**

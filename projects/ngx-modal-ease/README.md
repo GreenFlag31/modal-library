@@ -12,16 +12,17 @@ Live demonstration of the ngx-modal-ease library [here](https://greenflag31.gith
 
 # Installation
 
-| Version | Command                    | Description                         |
-| ------- | -------------------------- | ----------------------------------- |
-| V16     | npm i ngx-modal-ease@0.0.6 | Install the V16 compatible version. |
-| V17     | npm i ngx-modal-ease       | Install the V17 compatible version. |
+| Version | Command                    | Description                                                                                         |
+| ------- | -------------------------- | --------------------------------------------------------------------------------------------------- |
+| V16     | npm i ngx-modal-ease@0.0.6 | Install the V16 compatible version.                                                                 |
+| V17     | npm i ngx-modal-ease@0.0.9 | Install the V17 compatible version.                                                                 |
+| V18     | npm i ngx-modal-ease       | Install the V18 compatible version. This version is compatible with a zoneless Angular application. |
 
 # Options
 
 The modal supports a range of customisable options:
 
-```
+```javascript
 Options {
   modal?: {
     enter?: string;
@@ -73,25 +74,28 @@ Inject the ModalService through regular dependency injection in your component.
 
 In the following example, `ModalContentComponent` is the content of the modal and should be provided as first parameter. As second parameter, provide an object respecting the `Options` interface (see above).
 
-```
+NB: _From the V18 compatible version, observables have been transformed to regular Promises to anticipate the future optional RxJS._
+
+```javascript
   this.modalService.open(ModalContentComponent, {
     modal: {
-      <!-- animation -->
+      // animation
       enter: 'enter-scale-down 0.1s ease-out',
     },
     overlay: {
-      <!-- animation -->
+      // animation
       leave: 'fade-out 0.3s',
     },
     size: {
-      <!-- modal configuration -->
+      // modal configuration
       width: '400px',
     },
     data: {
-      <!-- data to ModalContentComponent -->
+      // data to ModalContentComponent
       type: 'Angular modal library',
     },
   })
+  // .then() or async / await for V18 compatible version
   .subscribe((dataFromModalContentComponent) => {
     ...
   });
@@ -102,8 +106,8 @@ Any type of data can be provided between components. Create the corresponding pr
 In your `ModalContentComponent`:
 To pass information from the `ModalContentComponent` to your current component, inject the `ModalService` through regular dependency injection and call the `close(data)` method from the service with any data you wish to send back to your component. This method returns an RxJs subject, so subscribe to it as shown in the above example. It is not necessary to unsubscribe from the subscription since it will automatically `complete()` in the service.
 
-```
-  <!-- Inside ModalContentComponent -->
+```javascript
+  // Inside ModalContentComponent
   onClose() {
     this.modalService.close(this.dataToSendBack);
   }
@@ -115,14 +119,14 @@ Publicly available methods have been exhaustively documented and typed, so you s
 
 This library exposes a `ModalService` that contains the following API:
 
-```
-<!-- Opens a component inside the modal -->
+```javascript
+// Opens a component inside the modal
 open<C>(componentToCreate: Type<C>, options?: Options);
 
-<!-- Close a modal with optional data to send back -->
+// Close a modal with optional data to send back
 close(data?: unknown);
 
-<!-- Close all opened modals -->
+// Close all opened modals
 closeAll();
 ```
 
@@ -132,7 +136,7 @@ NB: Z-index of overlay and modal start at 1000 and 2000 respectively. In case of
 
 This library comes with predefined and ready-to-use animations keyframes. Just fill in the `name`, `duration` and `easing function` (more info on the `animation CSS shorthand` [here](https://developer.mozilla.org/en-US/docs/Web/CSS/animation)). Those animations are _position agnostic_, so if you wish to position your modal at other `top` and `left` values than default, it will correctly work. Of course, you can create your own keyframes too.
 
-```
+```css
 /* Recommended: 0.2s ease-out */
 @keyframes enter-going-down {
   from {
@@ -258,6 +262,8 @@ Version 0.0.5: Fixed a bug between components that prevented the component from 
 Version 0.0.6: Added V16 backward compatibility support.
 
 Version 0.0.8: Incorporated internal component destruction to ensure proper invocation of the child's OnDestroy lifecycle hook.
+
+Version 0.1.0: Added V18 version. This version is compatible with a zoneless Angular application. Optional RxJS has been anticipated, observables have been transformed to regular Promises / event listeners.
 
 # Report a Bug
 

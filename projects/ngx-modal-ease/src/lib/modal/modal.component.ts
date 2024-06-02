@@ -10,7 +10,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { ModalService } from './modal.service';
 import { Options, PromiseModal } from './modal-options';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -30,7 +29,6 @@ export class ModalComponent implements OnInit, AfterViewInit {
   overlayClosed = false;
   modalClosed = false;
   layerLevel = 0;
-  escapeKeySubscription!: Subscription;
 
   constructor(
     private modalService: ModalService,
@@ -58,8 +56,6 @@ export class ModalComponent implements OnInit, AfterViewInit {
    */
   handleEscape = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
-      console.log('escape');
-
       if (this.options?.actions?.escape === false) return;
 
       if (this.layerLevel === this.modalService.layerLevel) {
@@ -102,9 +98,6 @@ export class ModalComponent implements OnInit, AfterViewInit {
       this.options?.overlay?.enter || '';
     this.overlay.nativeElement.style.backgroundColor =
       this.options?.overlay?.backgroundColor || '';
-
-    this.modal.nativeElement.getBoundingClientRect();
-    this.overlay.nativeElement.getBoundingClientRect();
   }
 
   removeElementIfNotAnimated(element: HTMLDivElement, animation: string) {
@@ -134,6 +127,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
     // First: no animations on both elements
     if (!this.modalLeaveAnimation && !this.overlayLeaveAnimation) {
       this.element.nativeElement.remove();
+      contentCp.contentCpRef.destroy();
       return;
     }
 
@@ -151,20 +145,20 @@ export class ModalComponent implements OnInit, AfterViewInit {
     this.modal.nativeElement.addEventListener('animationend', () => {
       this.modal.nativeElement.remove();
       this.modalClosed = true;
-      this.removeModalComponent(this.overlayClosed, contentCp);
+      this.removeModalComponent(contentCp);
     });
     this.overlay.nativeElement.addEventListener('animationend', () => {
       this.overlay.nativeElement.remove();
       this.overlayClosed = true;
-      this.removeModalComponent(this.modalClosed, contentCp);
+      this.removeModalComponent(contentCp);
     });
   }
 
   /**
    * Remove modal when both animations come to an end.
    */
-  removeModalComponent(modalOrOverlayClosed: boolean, contentCp: PromiseModal) {
-    if (modalOrOverlayClosed) {
+  removeModalComponent(contentCp: PromiseModal) {
+    if (this.modalClosed && this.overlayClosed) {
       this.element.nativeElement.remove();
       contentCp.contentCpRef.destroy();
     }

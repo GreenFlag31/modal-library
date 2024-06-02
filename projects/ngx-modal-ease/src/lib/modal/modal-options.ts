@@ -1,5 +1,4 @@
 import { ComponentRef } from '@angular/core';
-import { Subject } from 'rxjs';
 
 export interface Options {
   modal?: {
@@ -27,11 +26,6 @@ export interface Options {
   data?: {
     [key: string]: unknown;
   };
-}
-
-export interface SubjectModal {
-  subject: Subject<unknown>;
-  contentCpRef: ComponentRef<any>;
 }
 
 export interface PromiseModal {

@@ -9,7 +9,8 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalService } from './modal.service';
-import { Options, PromiseModal } from './modal-options';
+import { Options } from './modal-options';
+import { PromiseModal } from './internal-interfaces';
 
 @Component({
   selector: 'app-modal',
@@ -59,6 +60,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
       if (this.options?.actions?.escape === false) return;
 
       if (this.layerLevel === this.modalService.layerLevel) {
+        this.modalService.closedOnClickOrEscape = true;
         this.modalService.close();
       }
     }
@@ -66,7 +68,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
 
   onClose() {
     if (this.options?.actions?.click === false) return;
-
+    this.modalService.closedOnClickOrEscape = true;
     this.modalService.close();
   }
 

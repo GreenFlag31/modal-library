@@ -9,8 +9,9 @@ import {
   createComponent,
 } from '@angular/core';
 import { ModalComponent } from './modal.component';
-import { Options, PromiseModal } from './modal-options';
+import { ModalResponse, Options } from './modal-options';
 import { isPlatformBrowser } from '@angular/common';
+import { PromiseModal } from './internal-interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,10 @@ export class ModalService {
    * Internal use only.
    */
   layerLevel = 0;
+  /**
+   * Internal use only.
+   */
+  closedOnClickOrEscape = false;
   private isBrowser = true;
   private promiseContainer: PromiseModal[] = [];
 
@@ -65,19 +70,21 @@ export class ModalService {
    * ```
    */
   open<C>(componentToCreate: Type<C>, options?: Options) {
-    if (!this.isBrowser) return new Promise<void>((reject) => reject());
-
     this.options = options;
     this.openComponent(componentToCreate, options);
 
-    return new Promise((resolve) => {
+    return new Promise<ModalResponse>((resolve) => {
+      if (!this.isBrowser) return;
       this.promiseContainer.push({ resolve, contentCpRef: this.newComponent });
     });
   }
 
   private openComponent<C>(componentToCreate: Type<C>, options?: Options) {
+    if (!this.isBrowser) return;
+
     this.newComponent = createComponent(componentToCreate, {
       environmentInjector: this.injector,
+      elementInjector: options?.injector,
     });
 
     this.newModalComponent = createComponent(ModalComponent, {
@@ -108,7 +115,13 @@ export class ModalService {
     const modalPromise = this.promiseContainer.pop() as PromiseModal;
     this.modalInstances.pop()?.close(modalPromise);
 
-    if (arguments.length > 0) return modalPromise.resolve(data);
+    const response = {
+      closedOnClickOrEscape: this.closedOnClickOrEscape,
+      data,
+    };
+
+    this.closedOnClickOrEscape = false;
+    return modalPromise.resolve(response);
   }
 
   /**

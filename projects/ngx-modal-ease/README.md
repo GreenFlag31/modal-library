@@ -49,6 +49,7 @@ Options {
   data?: {
     [key: string]: unknown;
   };
+  injector?: Injector;
 }
 ```
 
@@ -95,7 +96,7 @@ NB: _From the V18 compatible version, observables have been transformed to regul
       type: 'Angular modal library',
     },
   })
-  // .then() or async / await for V18 compatible version
+  // .then() or async/await for V18 compatible version
   .subscribe((dataFromModalContentComponent) => {
     ...
   });
@@ -264,6 +265,8 @@ Version 0.0.6: Added V16 backward compatibility support.
 Version 0.0.8: Incorporated internal component destruction to ensure proper invocation of the child's OnDestroy lifecycle hook.
 
 Version 0.1.0: Added the V18 version. This version is compatible with a zoneless Angular application. Optional RxJS has been anticipated, observables have been transformed to regular Promises / event listeners.
+
+Version 0.1.1: Modification of the data response to better show the origin of the closing modal. Adding the possibility to provide an injector to the modal opening.
 
 # Report a Bug
 

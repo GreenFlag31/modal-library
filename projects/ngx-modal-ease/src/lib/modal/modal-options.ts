@@ -1,4 +1,4 @@
-import { ComponentRef } from '@angular/core';
+import { Injector } from '@angular/core';
 
 export interface Options {
   modal?: {
@@ -26,9 +26,10 @@ export interface Options {
   data?: {
     [key: string]: unknown;
   };
+  injector?: Injector;
 }
 
-export interface PromiseModal {
-  resolve: Function;
-  contentCpRef: ComponentRef<any>;
+export interface ModalResponse {
+  closedOnClickOrEscape: boolean;
+  data: unknown;
 }

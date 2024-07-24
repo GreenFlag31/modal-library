@@ -11,6 +11,7 @@ import { ModalContent2Component } from '../modal-content-2/modal-content-2.compo
 })
 export class ModalContentComponent {
   name = 'ModalContentComponent';
+
   constructor(private modalService: ModalService) {}
 
   onClose() {

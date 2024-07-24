@@ -36,18 +36,20 @@ export class AppComponent {
   constructor(private modalService: ModalService) {}
 
   onOpenM1() {
-    this.modalService.open(ModalContentComponent, {
-      modal: {
-        enter: `${this.M1.animation} ${this.M1.duration} ${this.M1.easing}`,
-      },
-      overlay: {
-        leave: 'fade-out 0.3s',
-      },
-      size: {
-        padding: '1rem',
-        width: '600px',
-      },
-    });
+    this.modalService
+      .open(ModalContentComponent, {
+        modal: {
+          enter: `${this.M1.animation} ${this.M1.duration} ${this.M1.easing}`,
+        },
+        overlay: {
+          leave: 'fade-out 0.3s',
+        },
+        size: {
+          padding: '1rem',
+          width: '600px',
+        },
+      })
+      .then((response) => console.log(response));
   }
 
   onOpenM2() {
@@ -74,7 +76,7 @@ export class AppComponent {
           padding: '0.5rem',
         },
       })
-      .then((data) => {
+      .then(({ data }) => {
         this.M3Information = data || '🚫 No data';
       });
   }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import { ModalService } from '../../projects/ngx-modal-ease/src/public-api';
 import { ModalContentComponent } from './modal-content/modal-content.component';
 import { ModalContent3Component } from './modal-content-3/modal-content-3.component';
@@ -10,7 +9,7 @@ import { ModalContent4Component } from './modal-content-4/modal-content-4.compon
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

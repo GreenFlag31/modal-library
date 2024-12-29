@@ -12,11 +12,12 @@ Live demonstration of the ngx-modal-ease library [here](https://greenflag31.gith
 
 # Installation
 
-| Version | Command                    | Description                                                                                         |
-| ------- | -------------------------- | --------------------------------------------------------------------------------------------------- |
-| V16     | npm i ngx-modal-ease@0.0.6 | Install the V16 compatible version.                                                                 |
-| V17     | npm i ngx-modal-ease@0.0.9 | Install the V17 compatible version.                                                                 |
-| V18     | npm i ngx-modal-ease       | Install the V18 compatible version. This version is compatible with a zoneless Angular application. |
+| Command                    | Description                                                                                                    |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| npm i ngx-modal-ease@0.0.6 | Install the V16 compatible version.                                                                            |
+| npm i ngx-modal-ease@0.0.9 | Install the V17 compatible version.                                                                            |
+| npm i ngx-modal-ease@0.1.2 | Install the V18 compatible version. This version is compatible with a zoneless, RxJs free Angular application. |
+| npm i ngx-modal-ease       | Install the V19 compatible version.                                                                            |
 
 # Options
 
@@ -49,24 +50,25 @@ Options {
   data?: {
     [key: string]: unknown;
   };
+  injector?: Injector;
 }
 ```
 
-| Name                                                           | Default                                                            | Description                                                                                                                                                                                                       |
-| -------------------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <span style="background-color:#f2f2f2;">enter</span>           | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Define the enter animation for the modal or the overlay respecting the [shorthand animation property](https://developer.mozilla.org/en-US/docs/Web/CSS/animation).</span> |
-| leave                                                          |                                                                    | Define the leave animation for the modal or the overlay respecting the [shorthand animation property](https://developer.mozilla.org/en-US/docs/Web/CSS/animation).                                                |
-| <span style="background-color:#f2f2f2;">top</span>             | <span style="background-color:#f2f2f2;">50</span>                  | <span style="background-color:#f2f2f2;">Top position of the modal in percent. Can be defined in any measure unit.</span>                                                                                          |
-| left                                                           | 50                                                                 | Left position of the modal in percent. Can be defined in any measure unit.                                                                                                                                        |
-| <span style="background-color:#f2f2f2;">backgroundColor</span> | <span style="background-color:#f2f2f2;">rgba(0, 0, 0, 0.4);</span> | <span style="background-color:#f2f2f2;">Background color of the overlay. Can be defined in any color notation (rgba, hex, hsl, ...).</span>                                                                       |
-| <span style="background-color:#f2f2f2;">minHeight</span>       | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Minimum height of the modal. Can be defined in any measure unit.</span>                                                                                                   |
-| <span style="background-color:#f2f2f2;">height</span>          | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Height of the modal. Can be defined in any measure unit.</span>                                                                                                           |
-| <span style="background-color:#f2f2f2;">width</span>           | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Width of the modal. Can be defined in any measure unit.</span>                                                                                                            |
-| <span style="background-color:#f2f2f2;">maxWidth</span>        | <span style="background-color:#f2f2f2;">100</span>                 | <span style="background-color:#f2f2f2;">Max width of the modal in percent. Can be defined in any measure unit.</span>                                                                                             |
-| <span style="background-color:#f2f2f2;">padding</span>         | <span style="background-color:#f2f2f2;">0.5</span>                 | <span style="background-color:#f2f2f2;">Padding to be applied on the modal in rem. Can be defined in any measure unit.</span>                                                                                     |
-| <span style="background-color:#f2f2f2;">escape</span>          | <span style="background-color:#f2f2f2;">true</span>                | <span style="background-color:#f2f2f2;">Enable escape to close the current modal.</span>                                                                                                                          |
-| <span style="background-color:#f2f2f2;">click</span>           | <span style="background-color:#f2f2f2;">true</span>                | <span style="background-color:#f2f2f2;">Enable click outside of the modal to close the current modal.</span>                                                                                                      |
-| <span style="background-color:#f2f2f2;">data</span>            | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Data communication between components under the form of key-value pairs. Any type of data is supported.</span>                                                            |
+| Name            | Default             | Description                                                                                                                                                        |
+| --------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| enter           |                     | Define the enter animation for the modal or the overlay respecting the [shorthand animation property](https://developer.mozilla.org/en-US/docs/Web/CSS/animation). |
+| leave           |                     | Define the leave animation for the modal or the overlay respecting the [shorthand animation property](https://developer.mozilla.org/en-US/docs/Web/CSS/animation). |
+| top             | 50                  | Top position of the modal in percent. Can be defined in any measure unit.                                                                                          |
+| left            | 50                  | Left position of the modal in percent. Can be defined in any measure unit.                                                                                         |
+| backgroundColor | rgba(0, 0, 0, 0.4); | Background color of the overlay. Can be defined in any color notation (rgba, hex, hsl, ...).                                                                       |
+| minHeight       |                     | Minimum height of the modal. Can be defined in any measure unit.                                                                                                   |
+| height          |                     | Height of the modal. Can be defined in any measure unit.                                                                                                           |
+| width           |                     | Width of the modal. Can be defined in any measure unit.                                                                                                            |
+| maxWidth        | 100                 | Max width of the modal in percent. Can be defined in any measure unit.                                                                                             |
+| padding         | 0.5                 | Padding to be applied on the modal in rem. Can be defined in any measure unit.                                                                                     |
+| escape          | true                | Enable escape to close the current modal.                                                                                                                          |
+| click           | true                | Enable click outside of the modal to close the current modal.                                                                                                      |
+| data            |                     | Data communication between components under the form of key-value pairs. Any type of data is supported.                                                            |
 
 # Complete Example
 

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import { ModalService } from '../../projects/ngx-modal-ease/src/public-api';
 import { ModalContentComponent } from './modal-content/modal-content.component';
 import { ModalContent3Component } from './modal-content-3/modal-content-3.component';
@@ -10,7 +9,7 @@ import { ModalContent4Component } from './modal-content-4/modal-content-4.compon
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -36,18 +35,20 @@ export class AppComponent {
   constructor(private modalService: ModalService) {}
 
   onOpenM1() {
-    this.modalService.open(ModalContentComponent, {
-      modal: {
-        enter: `${this.M1.animation} ${this.M1.duration} ${this.M1.easing}`,
-      },
-      overlay: {
-        leave: 'fade-out 0.3s',
-      },
-      size: {
-        padding: '1rem',
-        width: '600px',
-      },
-    });
+    this.modalService
+      .open(ModalContentComponent, {
+        modal: {
+          enter: `${this.M1.animation} ${this.M1.duration} ${this.M1.easing}`,
+        },
+        overlay: {
+          leave: 'fade-out 0.3s',
+        },
+        size: {
+          padding: '1rem',
+          width: '600px',
+        },
+      })
+      .then((response) => console.log(response));
   }
 
   onOpenM2() {
@@ -74,7 +75,7 @@ export class AppComponent {
           padding: '0.5rem',
         },
       })
-      .subscribe((data) => {
+      .then(({ data }) => {
         this.M3Information = data || '🚫 No data';
       });
   }

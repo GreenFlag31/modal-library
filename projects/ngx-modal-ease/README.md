@@ -12,16 +12,18 @@ Live demonstration of the ngx-modal-ease library [here](https://greenflag31.gith
 
 # Installation
 
-| Version | Command                    | Description                         |
-| ------- | -------------------------- | ----------------------------------- |
-| V16     | npm i ngx-modal-ease@0.0.6 | Install the V16 compatible version. |
-| V17     | npm i ngx-modal-ease       | Install the V17 compatible version. |
+| Command                    | Description                                                                                                    |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| npm i ngx-modal-ease@0.0.6 | Install the V16 compatible version.                                                                            |
+| npm i ngx-modal-ease@0.0.9 | Install the V17 compatible version.                                                                            |
+| npm i ngx-modal-ease@0.1.2 | Install the V18 compatible version. This version is compatible with a zoneless, RxJs free Angular application. |
+| npm i ngx-modal-ease       | Install the V19 compatible version.                                                                            |
 
 # Options
 
 The modal supports a range of customisable options:
 
-```
+```javascript
 Options {
   modal?: {
     enter?: string;
@@ -48,24 +50,25 @@ Options {
   data?: {
     [key: string]: unknown;
   };
+  injector?: Injector;
 }
 ```
 
-| Name                                                           | Default                                                            | Description                                                                                                                                                                                                       |
-| -------------------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <span style="background-color:#f2f2f2;">enter</span>           | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Define the enter animation for the modal or the overlay respecting the [shorthand animation property](https://developer.mozilla.org/en-US/docs/Web/CSS/animation).</span> |
-| leave                                                          |                                                                    | Define the leave animation for the modal or the overlay respecting the [shorthand animation property](https://developer.mozilla.org/en-US/docs/Web/CSS/animation).                                                |
-| <span style="background-color:#f2f2f2;">top</span>             | <span style="background-color:#f2f2f2;">50</span>                  | <span style="background-color:#f2f2f2;">Top position of the modal in percent. Can be defined in any measure unit.</span>                                                                                          |
-| left                                                           | 50                                                                 | Left position of the modal in percent. Can be defined in any measure unit.                                                                                                                                        |
-| <span style="background-color:#f2f2f2;">backgroundColor</span> | <span style="background-color:#f2f2f2;">rgba(0, 0, 0, 0.4);</span> | <span style="background-color:#f2f2f2;">Background color of the overlay. Can be defined in any color notation (rgba, hex, hsl, ...).</span>                                                                       |
-| <span style="background-color:#f2f2f2;">minHeight</span>       | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Minimum height of the modal. Can be defined in any measure unit.</span>                                                                                                   |
-| <span style="background-color:#f2f2f2;">height</span>          | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Height of the modal. Can be defined in any measure unit.</span>                                                                                                           |
-| <span style="background-color:#f2f2f2;">width</span>           | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Width of the modal. Can be defined in any measure unit.</span>                                                                                                            |
-| <span style="background-color:#f2f2f2;">maxWidth</span>        | <span style="background-color:#f2f2f2;">100</span>                 | <span style="background-color:#f2f2f2;">Max width of the modal in percent. Can be defined in any measure unit.</span>                                                                                             |
-| <span style="background-color:#f2f2f2;">padding</span>         | <span style="background-color:#f2f2f2;">0.5</span>                 | <span style="background-color:#f2f2f2;">Padding to be applied on the modal in rem. Can be defined in any measure unit.</span>                                                                                     |
-| <span style="background-color:#f2f2f2;">escape</span>          | <span style="background-color:#f2f2f2;">true</span>                | <span style="background-color:#f2f2f2;">Enable escape to close the current modal.</span>                                                                                                                          |
-| <span style="background-color:#f2f2f2;">click</span>           | <span style="background-color:#f2f2f2;">true</span>                | <span style="background-color:#f2f2f2;">Enable click outside of the modal to close the current modal.</span>                                                                                                      |
-| <span style="background-color:#f2f2f2;">data</span>            | <span style="background-color:#f2f2f2;"></span>                    | <span style="background-color:#f2f2f2;">Data communication between components under the form of key-value pairs. Any type of data is supported.</span>                                                            |
+| Name            | Default             | Description                                                                                                                                                        |
+| --------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| enter           |                     | Define the enter animation for the modal or the overlay respecting the [shorthand animation property](https://developer.mozilla.org/en-US/docs/Web/CSS/animation). |
+| leave           |                     | Define the leave animation for the modal or the overlay respecting the [shorthand animation property](https://developer.mozilla.org/en-US/docs/Web/CSS/animation). |
+| top             | 50                  | Top position of the modal in percent. Can be defined in any measure unit.                                                                                          |
+| left            | 50                  | Left position of the modal in percent. Can be defined in any measure unit.                                                                                         |
+| backgroundColor | rgba(0, 0, 0, 0.4); | Background color of the overlay. Can be defined in any color notation (rgba, hex, hsl, ...).                                                                       |
+| minHeight       |                     | Minimum height of the modal. Can be defined in any measure unit.                                                                                                   |
+| height          |                     | Height of the modal. Can be defined in any measure unit.                                                                                                           |
+| width           |                     | Width of the modal. Can be defined in any measure unit.                                                                                                            |
+| maxWidth        | 100                 | Max width of the modal in percent. Can be defined in any measure unit.                                                                                             |
+| padding         | 0.5                 | Padding to be applied on the modal in rem. Can be defined in any measure unit.                                                                                     |
+| escape          | true                | Enable escape to close the current modal.                                                                                                                          |
+| click           | true                | Enable click outside of the modal to close the current modal.                                                                                                      |
+| data            |                     | Data communication between components under the form of key-value pairs. Any type of data is supported.                                                            |
 
 # Complete Example
 
@@ -73,25 +76,28 @@ Inject the ModalService through regular dependency injection in your component.
 
 In the following example, `ModalContentComponent` is the content of the modal and should be provided as first parameter. As second parameter, provide an object respecting the `Options` interface (see above).
 
-```
+NB: _From the V18 compatible version, observables have been transformed to regular Promises to anticipate the future optional RxJS._
+
+```javascript
   this.modalService.open(ModalContentComponent, {
     modal: {
-      <!-- animation -->
+      // animation
       enter: 'enter-scale-down 0.1s ease-out',
     },
     overlay: {
-      <!-- animation -->
+      // animation
       leave: 'fade-out 0.3s',
     },
     size: {
-      <!-- modal configuration -->
+      // modal configuration
       width: '400px',
     },
     data: {
-      <!-- data to ModalContentComponent -->
+      // data to ModalContentComponent
       type: 'Angular modal library',
     },
   })
+  // .then() or async/await for V18 compatible version
   .subscribe((dataFromModalContentComponent) => {
     ...
   });
@@ -100,10 +106,10 @@ In the following example, `ModalContentComponent` is the content of the modal an
 Any type of data can be provided between components. Create the corresponding property (here, `type`) in your component (here, `ModalContentComponent`) and the property will be assigned with the provided value.
 
 In your `ModalContentComponent`:
-To pass information from the `ModalContentComponent` to your current component, inject the `ModalService` through regular dependency injection and call the `close(data)` method from the service with any data you wish to send back to your component. This method returns an RxJs subject, so subscribe to it as shown in the above example. It is not necessary to unsubscribe from the subscription since it will automatically `complete()` in the service.
+To pass information from the `ModalContentComponent` to your current component, inject the `ModalService` through regular dependency injection and call the `close(data)` method from the service with any data you wish to send back to your component. This method returns an RxJs subject (_a promise for V18 compatible version_), so subscribe to it as shown in the above example. It is not necessary to unsubscribe from the subscription since it will automatically `complete()` in the service.
 
-```
-  <!-- Inside ModalContentComponent -->
+```javascript
+  // Inside ModalContentComponent
   onClose() {
     this.modalService.close(this.dataToSendBack);
   }
@@ -115,14 +121,14 @@ Publicly available methods have been exhaustively documented and typed, so you s
 
 This library exposes a `ModalService` that contains the following API:
 
-```
-<!-- Opens a component inside the modal -->
+```javascript
+// Opens a component inside the modal
 open<C>(componentToCreate: Type<C>, options?: Options);
 
-<!-- Close a modal with optional data to send back -->
+// Close a modal with optional data to send back
 close(data?: unknown);
 
-<!-- Close all opened modals -->
+// Close all opened modals
 closeAll();
 ```
 
@@ -132,7 +138,7 @@ NB: Z-index of overlay and modal start at 1000 and 2000 respectively. In case of
 
 This library comes with predefined and ready-to-use animations keyframes. Just fill in the `name`, `duration` and `easing function` (more info on the `animation CSS shorthand` [here](https://developer.mozilla.org/en-US/docs/Web/CSS/animation)). Those animations are _position agnostic_, so if you wish to position your modal at other `top` and `left` values than default, it will correctly work. Of course, you can create your own keyframes too.
 
-```
+```css
 /* Recommended: 0.2s ease-out */
 @keyframes enter-going-down {
   from {
@@ -258,6 +264,10 @@ Version 0.0.5: Fixed a bug between components that prevented the component from 
 Version 0.0.6: Added V16 backward compatibility support.
 
 Version 0.0.8: Incorporated internal component destruction to ensure proper invocation of the child's OnDestroy lifecycle hook.
+
+Version 0.1.0: Added the V18 version. This version is compatible with a zoneless Angular application. Optional RxJS has been anticipated, observables have been transformed to regular Promises / event listeners.
+
+Version 0.1.1: Modification of the data response to better show the origin of the closing modal. Adding the possibility to provide an injector to the modal opening.
 
 # Report a Bug
 

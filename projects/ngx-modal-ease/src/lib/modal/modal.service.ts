@@ -9,9 +9,9 @@ import {
   createComponent,
 } from '@angular/core';
 import { ModalComponent } from './modal.component';
-import { Options, SubjectModal } from './modal-options';
-import { Subject } from 'rxjs';
+import { ModalResponse, Options } from './modal-options';
 import { isPlatformBrowser } from '@angular/common';
+import { PromiseModal } from './internal-interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,6 @@ import { isPlatformBrowser } from '@angular/common';
 export class ModalService {
   private newModalComponent!: ComponentRef<ModalComponent>;
   private newComponent!: ComponentRef<any>;
-  private modalSubject!: Subject<any>;
   /**
    * Internal use only.
    */
@@ -32,8 +31,12 @@ export class ModalService {
    * Internal use only.
    */
   layerLevel = 0;
+  /**
+   * Internal use only.
+   */
+  closedOnClickOrEscape = false;
   private isBrowser = true;
-  private modalSubjects: SubjectModal[] = [];
+  private promiseContainer: PromiseModal[] = [];
 
   constructor(
     private appRef: ApplicationRef,
@@ -47,7 +50,7 @@ export class ModalService {
    * Opens a custom component within a modal.
    * @param componentToCreate The custom component to display within the modal.
    * @param options Additional options for configuring the modal appearance and animations.
-   * @returns A RxJs Subject that will emit custom data on closing the modal.
+   * @returns A Promise that will emit custom data on closing the modal.
    * ```
    * this.modalService.open(ModalContentComponent, {
    *   modal: {
@@ -61,17 +64,19 @@ export class ModalService {
    *     type: 'Angular modal library',
    *   },
    * })
-   * .subscribe((dataFromComponent) => {
+   * .then((dataFromComponent) => {
    *    ...
    * });
    * ```
    */
   open<C>(componentToCreate: Type<C>, options?: Options) {
     this.options = options;
-
-    this.modalSubject = new Subject();
     this.openComponent(componentToCreate, options);
-    return this.modalSubject;
+
+    return new Promise<ModalResponse>((resolve) => {
+      if (!this.isBrowser) return;
+      this.promiseContainer.push({ resolve, contentCpRef: this.newComponent });
+    });
   }
 
   private openComponent<C>(componentToCreate: Type<C>, options?: Options) {
@@ -79,6 +84,7 @@ export class ModalService {
 
     this.newComponent = createComponent(componentToCreate, {
       environmentInjector: this.injector,
+      elementInjector: options?.injector,
     });
 
     this.newModalComponent = createComponent(ModalComponent, {
@@ -87,13 +93,8 @@ export class ModalService {
     });
 
     this.instantiateProps(options?.data);
-    this.modalSubjects.push({
-      subject: this.modalSubject,
-      contentCpRef: this.newComponent,
-    });
 
     document.body.appendChild(this.newModalComponent.location.nativeElement);
-
     this.appRef.attachView(this.newComponent.hostView);
     this.appRef.attachView(this.newModalComponent.hostView);
   }
@@ -109,13 +110,18 @@ export class ModalService {
    * @param data The optional data to emit on closing the modal (communication from modal to caller).
    */
   close(data?: unknown) {
-    if (this.modalSubjects.length === 0) return;
+    if (this.promiseContainer.length === 0) return;
 
-    const modalSubject = this.modalSubjects.pop() as SubjectModal;
-    this.modalInstances.pop()?.close(modalSubject);
+    const modalPromise = this.promiseContainer.pop() as PromiseModal;
+    this.modalInstances.pop()?.close(modalPromise);
 
-    modalSubject.subject.next(data);
-    modalSubject.subject.complete();
+    const response = {
+      closedOnClickOrEscape: this.closedOnClickOrEscape,
+      data,
+    };
+
+    this.closedOnClickOrEscape = false;
+    return modalPromise.resolve(response);
   }
 
   /**

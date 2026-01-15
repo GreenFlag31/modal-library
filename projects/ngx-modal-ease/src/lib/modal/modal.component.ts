@@ -13,13 +13,12 @@ import { Options } from './modal-options';
 import { PromiseModal } from './internal-interfaces';
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css'],
-  imports: [CommonModule],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-modal',
+    templateUrl: './modal.component.html',
+    styleUrls: ['./modal.component.css'],
+    imports: [CommonModule],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
 export class ModalComponent implements OnInit, AfterViewInit {
   @ViewChild('modal') modal!: ElementRef<HTMLDivElement>;

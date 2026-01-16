@@ -17,8 +17,8 @@ import { PromiseModal } from './internal-interfaces';
   providedIn: 'root',
 })
 export class ModalService {
-  private newModalComponent!: ComponentRef<ModalComponent>;
-  private newComponent!: ComponentRef<any>;
+  private libraryComponent!: ComponentRef<ModalComponent>;
+  private userComponent!: ComponentRef<any>;
   /**
    * Internal use only.
    */
@@ -75,33 +75,40 @@ export class ModalService {
 
     return new Promise<ModalResponse>((resolve) => {
       if (!this.isBrowser) return;
-      this.promiseContainer.push({ resolve, contentCpRef: this.newComponent });
+      this.promiseContainer.push({
+        resolve,
+        userComponent: this.userComponent,
+        libraryComponent: this.libraryComponent,
+      });
     });
   }
 
   private openComponent<C>(componentToCreate: Type<C>, options?: Options) {
     if (!this.isBrowser) return;
 
-    this.newComponent = createComponent(componentToCreate, {
+    this.userComponent = createComponent(componentToCreate, {
       environmentInjector: this.injector,
       elementInjector: options?.injector,
     });
 
-    this.newModalComponent = createComponent(ModalComponent, {
+    this.libraryComponent = createComponent(ModalComponent, {
       environmentInjector: this.injector,
-      projectableNodes: [[this.newComponent.location.nativeElement]],
+      projectableNodes: [[this.userComponent.location.nativeElement]],
     });
 
     this.instantiateProps(options?.data);
 
-    document.body.appendChild(this.newModalComponent.location.nativeElement);
-    this.appRef.attachView(this.newComponent.hostView);
-    this.appRef.attachView(this.newModalComponent.hostView);
+    this.appRef.attachView(this.userComponent.hostView);
+    this.appRef.attachView(this.libraryComponent.hostView);
+    document.body.appendChild(this.libraryComponent.location.nativeElement);
   }
 
+  /**
+   * Set user provided data into the component instance.
+   */
   private instantiateProps(data: Options['data'] = {}) {
     for (const key of Object.keys(data)) {
-      this.newComponent.instance[key] = data[key];
+      this.userComponent.instance[key] = data[key];
     }
   }
 
@@ -112,8 +119,9 @@ export class ModalService {
   close(data?: unknown) {
     if (this.promiseContainer.length === 0) return;
 
-    const modalPromise = this.promiseContainer.pop() as PromiseModal;
-    this.modalInstances.pop()?.close(modalPromise);
+    const { userComponent, libraryComponent, resolve } =
+      this.promiseContainer.pop()!;
+    this.modalInstances.pop()?.close(userComponent);
 
     const response = {
       closedOnClickOrEscape: this.closedOnClickOrEscape,
@@ -121,7 +129,10 @@ export class ModalService {
     };
 
     this.closedOnClickOrEscape = false;
-    return modalPromise.resolve(response);
+    this.appRef.detachView(userComponent.hostView);
+    this.appRef.detachView(libraryComponent.hostView);
+
+    return resolve(response);
   }
 
   /**

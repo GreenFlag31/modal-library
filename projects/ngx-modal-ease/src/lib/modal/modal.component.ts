@@ -6,6 +6,7 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation,
   OnInit,
+  ComponentRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalService } from './modal.service';
@@ -13,12 +14,12 @@ import { Options } from './modal-options';
 import { PromiseModal } from './internal-interfaces';
 
 @Component({
-    selector: 'app-modal',
-    templateUrl: './modal.component.html',
-    styleUrls: ['./modal.component.css'],
-    imports: [CommonModule],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+  selector: 'app-modal',
+  templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.css'],
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ModalComponent implements OnInit, AfterViewInit {
   @ViewChild('modal') modal!: ElementRef<HTMLDivElement>;
@@ -54,7 +55,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
    * Multiple modals might register multiple event listener, hence the 'layerLevel' variable and two times the condition check for the escape option.
    * Arrow function to respect the this instance.
    */
-  handleEscape = (event: KeyboardEvent) => {
+  private handleEscape = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
       if (this.options?.actions?.escape === false) return;
 
@@ -75,7 +76,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
    * Add options and animations
    * Apply user style and animations, listen to animation ends. Apply z-indexes on overlay and modal, with 1000 as incremental value.
    */
-  addOptionsAndAnimations() {
+  private addOptionsAndAnimations() {
     this.modal.nativeElement.style.width = this.options?.size?.width || '';
     this.modal.nativeElement.style.maxWidth =
       this.options?.size?.maxWidth || '';
@@ -101,7 +102,10 @@ export class ModalComponent implements OnInit, AfterViewInit {
       this.options?.overlay?.backgroundColor || '';
   }
 
-  removeElementIfNotAnimated(element: HTMLDivElement, animation: string) {
+  private removeElementIfNotAnimated(
+    element: HTMLDivElement,
+    animation: string
+  ) {
     if (!animation) {
       element.remove();
 
@@ -118,7 +122,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
    * Apply the leaving animations and clean the DOM. Three different use cases.
    * Last In First Out
    */
-  close(contentCp: PromiseModal) {
+  close(userComponent: ComponentRef<any>) {
     this.modalService.layerLevel -= 1;
 
     this.modal.nativeElement.style.animation = this.modalLeaveAnimation;
@@ -128,7 +132,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
     // First: no animations on both elements
     if (!this.modalLeaveAnimation && !this.overlayLeaveAnimation) {
       this.element.nativeElement.remove();
-      contentCp.contentCpRef.destroy();
+      userComponent.destroy();
       return;
     }
 
@@ -146,22 +150,22 @@ export class ModalComponent implements OnInit, AfterViewInit {
     this.modal.nativeElement.addEventListener('animationend', () => {
       this.modal.nativeElement.remove();
       this.modalClosed = true;
-      this.removeModalComponent(contentCp);
+      this.removeModalComponent(userComponent);
     });
     this.overlay.nativeElement.addEventListener('animationend', () => {
       this.overlay.nativeElement.remove();
       this.overlayClosed = true;
-      this.removeModalComponent(contentCp);
+      this.removeModalComponent(userComponent);
     });
   }
 
   /**
    * Remove modal when both animations come to an end.
    */
-  removeModalComponent(contentCp: PromiseModal) {
+  private removeModalComponent(userComponent: ComponentRef<any>) {
     if (this.modalClosed && this.overlayClosed) {
       this.element.nativeElement.remove();
-      contentCp.contentCpRef.destroy();
+      userComponent.destroy();
     }
   }
 }

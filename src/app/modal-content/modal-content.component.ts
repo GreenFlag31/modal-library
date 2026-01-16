@@ -3,10 +3,10 @@ import { ModalService } from '../../../projects/ngx-modal-ease/src/public-api';
 import { ModalContent2Component } from '../modal-content-2/modal-content-2.component';
 
 @Component({
-    selector: 'app-modal-content',
-    imports: [],
-    templateUrl: './modal-content.component.html',
-    styleUrl: './modal-content.component.css'
+  selector: 'app-modal-content',
+  imports: [],
+  templateUrl: './modal-content.component.html',
+  styleUrl: './modal-content.component.css',
 })
 export class ModalContentComponent {
   name = 'ModalContentComponent';

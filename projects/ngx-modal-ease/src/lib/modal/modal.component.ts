@@ -8,16 +8,15 @@ import {
   OnInit,
   ComponentRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ModalService } from './modal.service';
 import { Options } from './modal-options';
-import { PromiseModal } from './internal-interfaces';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css'],
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
@@ -33,7 +32,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
 
   constructor(
     private modalService: ModalService,
-    private element: ElementRef<HTMLElement>
+    private element: ElementRef<HTMLElement>,
   ) {}
 
   ngOnInit() {
@@ -104,7 +103,7 @@ export class ModalComponent implements OnInit, AfterViewInit {
 
   private removeElementIfNotAnimated(
     element: HTMLDivElement,
-    animation: string
+    animation: string,
   ) {
     if (!animation) {
       element.remove();
@@ -139,11 +138,11 @@ export class ModalComponent implements OnInit, AfterViewInit {
     // Second: 1/2 animated, remove directly element if not animated
     this.removeElementIfNotAnimated(
       this.modal.nativeElement,
-      this.modalLeaveAnimation
+      this.modalLeaveAnimation,
     );
     this.removeElementIfNotAnimated(
       this.overlay?.nativeElement,
-      this.overlayLeaveAnimation
+      this.overlayLeaveAnimation,
     );
 
     // Third: Both animated with differents animation time, remove modal component as soon as last one ends

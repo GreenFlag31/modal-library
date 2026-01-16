@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ModalService } from '../../projects/ngx-modal-ease/src/public-api';
 import { ModalContentComponent } from './modal-content/modal-content.component';
 import { ModalContent3Component } from './modal-content-3/modal-content-3.component';
@@ -8,7 +8,7 @@ import { ModalContent4Component } from './modal-content-4/modal-content-4.compon
 
 @Component({
     selector: 'app-root',
-    imports: [CommonModule, FormsModule],
+    imports: [FormsModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })

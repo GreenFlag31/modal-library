@@ -19,6 +19,7 @@ Live demonstration of the ngx-modal-ease library [here](https://greenflag31.gith
 | npm i ngx-modal-ease@0.1.2 | Install the V18 compatible version. This version is compatible with a zoneless, RxJs free Angular application. |
 | npm i ngx-modal-ease@0.1.3 | Install the V19 compatible version.                                                                            |
 | npm i ngx-modal-ease@0.1.4 | Install the V20 compatible version.                                                                            |
+| npm i ngx-modal-ease       | Install the V21 compatible version.                                                                            |
 
 # Options
 
@@ -271,6 +272,8 @@ Version 0.1.0: Added the V18 version. This version is compatible with a zoneless
 Version 0.1.1: Modification of the data response to better show the origin of the closing modal. Adding the possibility to provide an injector to the modal opening.
 
 Version 0.1.4: Angular V20 support.
+
+Version 0.1.5: Angular V21 support.
 
 # Report a Bug
 
